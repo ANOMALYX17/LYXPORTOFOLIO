@@ -1,62 +1,257 @@
- 
+
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LYX | Personal Portfolio</title>
 <meta name="theme-color" content="#080817">
-<meta name="description" content="LYX personal portfolio — creative projects, skills, and progress.">
+<meta name="description" content="LYX personal portfolio — projects, skills and creative work.">
+<title>LYX | Personal Portfolio</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#080817;--panel:#111128;--blue:#4ba8ff;--purple:#9d69ff;--text:#f4f5ff;--muted:#a4a6c4;--border:#29294b}
+:root{
+  --bg:#080817;
+  --panel:#111128;
+  --panel2:#171733;
+  --blue:#4ba8ff;
+  --purple:#9d69ff;
+  --text:#f4f5ff;
+  --muted:#a4a6c4;
+  --border:#29294b;
+}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#17133d 0%,var(--bg) 55%);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
-header{position:sticky;top:0;z-index:5;background:#080817df;backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-size:24px;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--blue),var(--purple));background-clip:text;-webkit-background-clip:text;color:transparent}
-nav{display:flex;gap:17px;flex-wrap:wrap}
+html{scroll-behavior:smooth;scroll-padding-top:135px}
+body{
+  margin:0;
+  background:radial-gradient(ellipse at top,#17133d 0%,var(--bg) 55%);
+  color:var(--text);
+  font-family:system-ui,-apple-system,sans-serif;
+  min-height:100vh;
+}
 a{color:var(--blue);text-decoration:none}
-nav a{color:var(--muted);font-size:13px}
-nav a:hover{color:white}
-button,.btn{border:1px solid #45457b;border-radius:10px;padding:10px 15px;color:white;background:#191936;cursor:pointer;font-weight:650}
-button:hover,.btn:hover{border-color:var(--blue)}
-.primary{background:linear-gradient(100deg,#286de9,#8050e7);border:0}
-main{max-width:1050px;margin:auto;padding:35px 20px 70px}
-.hero{padding:65px 0 45px}
-.eyebrow{color:var(--blue);letter-spacing:3px;font-size:12px;font-weight:800}
+button,input,textarea,select{font:inherit}
+button{
+  border:1px solid #45457b;
+  border-radius:10px;
+  padding:10px 14px;
+  color:white;
+  background:#191936;
+  cursor:pointer;
+}
+button:hover{border-color:var(--blue)}
+button:disabled{opacity:.5;cursor:wait}
+.primary{
+  background:linear-gradient(100deg,#286de9,#8050e7);
+  border:0;
+}
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border-radius:9px;
+  background:#09091a;
+  border:1px solid var(--border);
+  color:white;
+  margin:7px 0 13px;
+}
+textarea{min-height:280px;resize:vertical;font-family:monospace;font-size:12px}
+label{font-size:13px;color:var(--muted)}
+.logo{
+  font-size:25px;
+  font-weight:950;
+  letter-spacing:4px;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#080817ed;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  padding:13px clamp(14px,4vw,45px);
+  box-shadow:0 5px 25px #0002;
+}
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.nav,.tools{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:5px;
+}
+.nav{margin-top:12px}
+.nav a,.tools a,.tools button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 11px;
+  border:1px solid transparent;
+  border-radius:9px;
+  color:#b9bad8;
+  background:transparent;
+  white-space:nowrap;
+  font-size:12px;
+}
+.nav a:hover,.tools a:hover{
+  color:white;
+  border-color:#41416b;
+  background:#17172f;
+}
+.tools .owner-button{
+  border-color:#5d4ca0;
+  color:#c4b4ff;
+  cursor:pointer;
+}
+main{max-width:1080px;margin:auto;padding:30px 20px 65px}
+section{margin-top:44px;scroll-margin-top:140px}
+.hero{padding:50px 0 28px;margin-top:0}
+.eyebrow{
+  color:var(--blue);
+  letter-spacing:2.5px;
+  font-size:11px;
+  font-weight:850;
+}
 h1{font-size:clamp(42px,9vw,78px);line-height:1.03;margin:14px 0}
-.gradient{background:linear-gradient(90deg,#58bdff,#a77aff);background-clip:text;-webkit-background-clip:text;color:transparent}
+h2{font-size:24px;margin:0 0 18px}
+h3{font-size:17px;margin:0 0 9px}
+.gradient{
+  background:linear-gradient(90deg,#58bdff,#a77aff);
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent;
+}
 p{line-height:1.7;color:var(--muted)}
 .hero p{max-width:590px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.section{margin-top:45px;scroll-margin-top:90px}
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-h2{font-size:23px;margin:0 0 18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.card{background:linear-gradient(145deg,#15152e,#0e0e20);border:1px solid var(--border);border-radius:16px;padding:19px;min-width:0}
-.card h3{margin:0 0 8px;font-size:17px}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #45457b;
+  border-radius:10px;
+  padding:10px 15px;
+  color:white;
+  background:#191936;
+  font-size:13px;
+}
+.btn.primary{background:linear-gradient(100deg,#286de9,#8050e7);border:0}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));
+  gap:14px;
+}
+.card{
+  min-width:0;
+  padding:19px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:linear-gradient(145deg,#15152e,#0e0e20);
+}
 .card p{font-size:14px;overflow-wrap:anywhere}
-.tag{display:inline-block;padding:5px 9px;border-radius:7px;background:#202044;color:#b8c6ff;font-size:11px;margin:3px 3px 3px 0}
-.track{height:7px;background:#292944;border-radius:20px;overflow:hidden;margin:12px 0}
-.track span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--purple))}
-.gallery-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px}
+.tag{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:7px;
+  background:#202044;
+  color:#b8c6ff;
+  font-size:11px;
+  margin:3px 3px 3px 0;
+}
+.track{
+  height:7px;
+  background:#292944;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.track span{
+  display:block;height:100%;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+}
 .status{color:#7fe3b0;font-size:12px}
-input,textarea{width:100%;padding:12px;border-radius:9px;background:#09091a;border:1px solid var(--border);color:white;margin:7px 0 13px;font:inherit}
-textarea{min-height:300px;resize:vertical;font-family:monospace;font-size:12px}
-label{font-size:13px;color:var(--muted)}
-#ownerPanel{margin-top:35px;border:1px solid #5851a0;border-radius:16px;padding:20px;background:#111126}
-#ownerPanel h2{margin-bottom:8px}
+.gallery-img{
+  width:100%;aspect-ratio:16/10;
+  object-fit:cover;border-radius:10px;
+}
+.contact-card{
+  display:flex;flex-direction:column;
+  min-height:205px;
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:linear-gradient(145deg,#15152e,#0e0e20);
+  color:var(--text);
+  transition:transform .2s,border-color .2s;
+}
+.contact-card:hover{transform:translateY(-3px);border-color:#7667ff}
+.contact-icon{
+  display:grid;place-items:center;
+  width:44px;height:44px;
+  border:1px solid #393765;
+  border-radius:12px;
+  background:#202044;
+  font-size:21px;margin-bottom:17px;
+}
+.contact-action{color:#75baff;font-size:12px;font-weight:750;margin-top:auto}
+.muted{color:var(--muted)}
+.notice{
+  padding:12px;
+  border-radius:9px;
+  background:#191936;
+  color:#c5c9ff;
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
 .hidden{display:none!important}
-.notice{padding:12px;border-radius:9px;background:#191936;color:#c5c9ff;font-size:13px;overflow-wrap:anywhere}
-footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:var(--muted);font-size:12px}
-@media(max-width:600px){header{align-items:flex-start;flex-direction:column}nav{gap:12px}.hero{padding-top:40px}}
+hr{border:0;border-top:1px solid var(--border);margin:23px 0}
+footer{
+  text-align:center;border-top:1px solid var(--border);
+  padding:25px;color:var(--muted);font-size:12px;
+}
+body.light{
+  --bg:#f4f5ff;--panel:#fff;--panel2:#eeeefe;
+  --text:#18182d;--muted:#555875;--border:#d5d6ec;
+  background:#f4f5ff;color:var(--text);
+}
+body.light .header{background:#f4f5ffed}
+body.light .card,body.light .contact-card{background:#fff}
+body.light input,body.light textarea,body.light select{background:#fff;color:#18182d}
+body.light .nav a,body.light .tools a{color:#555875}
+@media(max-width:650px){
+  .header{padding:12px}
+  .header-top{align-items:flex-start}
+  .tools{justify-content:flex-start}
+  .nav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .nav a{flex-shrink:0}
+  .nav a,.tools a,.tools button{padding:8px;font-size:11px}
+  main{padding:24px 15px 55px}
+  .hero{padding-top:38px}
+}
 </style>
 </head>
+
 <body>
-<header>
-  <div class="logo">LYX.</div>
-  <nav>
-    <a href="#about">About</a>
+<header class="header">
+  <div class="header-top">
+    <a class="logo" href="#about">LYX.</a>
+    <div class="tools">
+      <button class="owner-button" id="ownerBtn" type="button">♙ Owner</button>
+      <a href="#settings">⚙ Settings</a>
+      <a href="#credits">✦ Credits</a>
+      <a href="#socials">✉ Contact</a>
+    </div>
+  </div>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="#about">Home</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#gallery">Gallery</a>
@@ -75,64 +270,164 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:v
     </div>
   </section>
 
-  <section class="section">
+  <section>
     <div class="grid">
-      <div class="card"><div class="eyebrow">IDENTITY</div><h3 id="displayName">LYX</h3><p id="displayRole">Creative individual</p></div>
-      <div class="card"><div class="eyebrow">CURRENT FOCUS</div><h3 id="displayFocus">Building my future</h3><p>Learning, creating, and documenting the journey.</p></div>
-      <div class="card"><div class="eyebrow">PORTFOLIO STATUS</div><h3>Online</h3><p>Public portfolio · Powered by Supabase</p></div>
+      <article class="card">
+        <div class="eyebrow">IDENTITY</div>
+        <h3 id="displayName">LYX</h3>
+        <p id="displayRole">Creative individual</p>
+      </article>
+      <article class="card">
+        <div class="eyebrow">CURRENT FOCUS</div>
+        <h3 id="displayFocus">Building my future</h3>
+        <p>Learning, creating, and documenting the journey.</p>
+      </article>
+      <article class="card">
+        <div class="eyebrow">PORTFOLIO</div>
+        <h3>Creative Archive</h3>
+        <p>Projects, skills, and updates in one place.</p>
+      </article>
     </div>
   </section>
 
-  <section class="section" id="skills">
+  <section id="skills">
     <h2>✦ Skills</h2>
     <div class="grid" id="skillsGrid"></div>
   </section>
 
-  <section class="section" id="projects">
+  <section id="projects">
     <h2>◈ Projects & Progress</h2>
     <div class="grid" id="projectsGrid"></div>
   </section>
 
-  <section class="section" id="gallery">
+  <section id="gallery">
     <h2>▧ Gallery</h2>
     <div class="grid" id="galleryGrid"></div>
   </section>
 
-  <section class="section" id="posts">
+  <section id="posts">
     <h2>✧ Latest Posts</h2>
     <div class="grid" id="postsGrid"></div>
   </section>
 
-  <section class="section" id="socials">
-    <h2>↗ Find Me</h2>
-    <div class="card" id="socialsBox">Social links will appear here.</div>
+  <section id="socials">
+    <div class="eyebrow">LYX · PROFESSIONAL CONTACT</div>
+    <h2 style="font-size:clamp(30px,5vw,44px);margin-top:10px">
+      Let's <span class="gradient">Connect.</span>
+    </h2>
+    <p style="max-width:580px">
+      For professional inquiries, agency communication,
+      collaboration opportunities, and portfolio-related matters.
+    </p>
+    <div class="grid" style="margin-top:22px">
+
+      <a class="contact-card" href="mailto:fitrianajunk12@gmail.com?subject=Professional%20Inquiry%20-%20LYX">
+        <div class="contact-icon">✉</div>
+        <div class="eyebrow">01 / EMAIL</div>
+        <h3>Email Inquiry</h3>
+        <p>Professional communication and inquiries.</p>
+        <span class="contact-action">Send an email ↗</span>
+      </a>
+
+      <a class="contact-card" href="https://open.kakao.com/" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">💬</div>
+        <div class="eyebrow">02 / KAKAOTALK</div>
+        <h3>KakaoTalk</h3>
+        <p>Connect through KakaoTalk.</p>
+        <span class="contact-action">Open KakaoTalk ↗</span>
+      </a>
+
+      <a class="contact-card" href="https://wa.me/" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">☏</div>
+        <div class="eyebrow">03 / WHATSAPP</div>
+        <h3>WhatsApp</h3>
+        <p>Direct communication when a contact number is available.</p>
+        <span class="contact-action">Open WhatsApp ↗</span>
+      </a>
+
+      <a class="contact-card" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">◎</div>
+        <div class="eyebrow">04 / INSTAGRAM</div>
+        <h3>Instagram</h3>
+        <p>Social profile and creative updates.</p>
+        <span class="contact-action">Open Instagram ↗</span>
+      </a>
+
+      <a class="contact-card" href="https://github.com/anomalyx17" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">⌘</div>
+        <div class="eyebrow">05 / GITHUB</div>
+        <h3>Development Portfolio</h3>
+        <p>Explore my website and development projects.</p>
+        <span class="contact-action">View GitHub ↗</span>
+      </a>
+
+    </div>
+    <p class="muted" style="font-size:11px;margin-top:20px">
+      LYX · Professional inquiries and creative opportunities.
+    </p>
+  </section>
+
+  <section id="settings">
+    <h2>⚙ Settings</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Appearance</h3>
+        <p>Switch between the original dark theme and a light theme.</p>
+        <button id="themeBtn" type="button">Switch to Light Theme</button>
+      </article>
+      <article class="card">
+        <h3>Portfolio Data</h3>
+        <p>Reload the latest public content stored in Supabase.</p>
+        <button id="refreshBtn" type="button">Refresh Content</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="credits">
+    <h2>✦ Credits</h2>
+    <div class="card">
+      <div class="eyebrow">CREATED BY LYX</div>
+      <h3 style="margin-top:10px">Ideas into reality.</h3>
+      <p>
+        Portfolio concept, personal projects, and creative direction by LYX.
+        Website development assisted by ChatGPT.
+      </p>
+      <p class="muted" style="font-size:12px">
+        Built with HTML, CSS, JavaScript, and Supabase.
+      </p>
+    </div>
   </section>
 
   <section id="ownerPanel" class="hidden">
-    <h2>⚙ Owner Dashboard</h2>
-    <p>Perubahan yang disimpan di sini akan terlihat oleh pengunjung lain.</p>
-    <div class="notice" id="ownerStatus">Owner mode aktif.</div>
+    <h2>♙ Owner Dashboard</h2>
+    <p>Only the designated owner account should be allowed to save content.</p>
+    <div class="notice" id="ownerStatus">Checking owner access...</div>
+
     <label for="contentEditor">Portfolio content (JSON)</label>
     <textarea id="contentEditor" spellcheck="false"></textarea>
+
     <div class="actions">
-      <button class="primary" id="saveBtn">Save Changes</button>
-      <button id="reloadBtn">Reload Cloud Data</button>
-      <button id="logoutBtn">Log Out</button>
+      <button class="primary" id="saveBtn" type="button">Save Changes</button>
+      <button id="reloadBtn" type="button">Reload Cloud Data</button>
+      <button id="logoutBtn" type="button">Log Out</button>
     </div>
-    <hr style="border-color:var(--border);margin:24px 0">
-    <h3>Upload image</h3>
-    <p>File yang diunggah disimpan di Supabase Storage.</p>
-    <input type="file" id="uploadFile" accept="image/*">
-    <button id="uploadBtn">Upload Image</button>
-    <p id="uploadResult"></p>
-    <p class="notice">Setelah upload, salin URL yang muncul ke bagian "gallery" dalam JSON, lalu tekan Save Changes.</p>
+
+    <hr>
+    <h3>How to edit</h3>
+    <p>
+      Change project titles, progress, status, skills, gallery items, and posts
+      in the JSON editor above, then select Save Changes.
+    </p>
+    <p class="notice">
+      Gallery items can use an image URL. Upload the image to a public image
+      host or your configured Supabase Storage bucket first.
+    </p>
   </section>
 
-  <section class="section">
-    <button id="loginToggle">Owner Login</button>
-    <div id="loginBox" class="card hidden" style="margin-top:12px">
-      <h3>Owner Access</h3>
-      <p>Login memakai akun yang sudah dibuat di Supabase Authentication.</p>
+  <section id="loginBox" class="hidden">
+    <div class="card">
+      <h2>Owner Login</h2>
+      <p>Sign in with the owner account created in Supabase Authentication.</p>
       <form id="loginForm">
         <label for="email">Owner email</label>
         <input id="email" type="email" autocomplete="username" required>
@@ -140,19 +435,25 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:v
         <input id="password" type="password" autocomplete="current-password" required>
         <button class="primary" type="submit">Log In</button>
       </form>
-      <p id="loginStatus"></p>
+      <p id="loginStatus" role="status"></p>
     </div>
   </section>
 </main>
-<footer>© <span id="year"></span> LYX · Personal Portfolio</footer>
+
+<footer>
+  © <span id="year"></span> LYX · Personal Portfolio
+</footer>
 
 <script>
 (() => {
+  "use strict";
+
+  // Public Supabase project configuration.
+  // Never put a service_role key or account password in this file.
   const SUPABASE_URL = "https://mubsgqwybswrnnmpvacs.supabase.co";
   const SUPABASE_KEY = "sb_publishable_yyBMLJ3WMziG_cCWp9Yyxg_l6rYBK09";
   const OWNER_EMAIL = "fitrianajunk12@gmail.com";
   const TABLE = "lyx_portfolio";
-  const BUCKET = "portfolio-media";
 
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   const $ = id => document.getElementById(id);
@@ -163,26 +464,24 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:v
     bio: "Welcome to my personal space. Here I document my skills, creative projects, and progress.",
     focus: "Dance · Music · Creative Projects",
     skills: [
-      {"name":"Dance","level":35,"description":"Practice and choreography"},
-      {"name":"Creative Direction","level":20,"description":"Ideas, concepts, and storytelling"},
-      {"name":"Web Development","level":20,"description":"Learning HTML, CSS, and JavaScript"}
+      {name:"Dance",level:35,description:"Practice and choreography"},
+      {name:"Creative Direction",level:20,description:"Ideas, concepts, and storytelling"},
+      {name:"Web Development",level:20,description:"Learning HTML, CSS, and JavaScript"}
     ],
     projects: [
-      {"title":"Dance Practice","date":"2026","status":"In Progress","progress":25,"description":"Learning choreography and improving performance."},
-      {"title":"LYX Portfolio","date":"2026","status":"In Progress","progress":70,"description":"Building a personal portfolio website."}
+      {title:"Dance Practice",date:"2026",status:"In Progress",progress:25,description:"Learning choreography and improving performance."},
+      {title:"LYX Portfolio",date:"2026",status:"In Progress",progress:70,description:"Building a personal portfolio website."}
     ],
     gallery: [],
     posts: [
-      {"title":"Welcome to LYX","date":"2026","description":"My portfolio is online. More projects coming soon."}
-    ],
-    socials: [
-      {"name":"GitHub","url":"https://github.com/anomalyx17"}
+      {title:"Welcome to LYX",date:"2026",description:"My portfolio is online. More projects coming soon."}
     ]
   };
 
   let content = structuredClone(defaults);
   let isOwner = false;
   let currentSession = null;
+  let loading = false;
 
   function esc(value) {
     return String(value ?? "").replace(/[&<>"']/g, ch => ({
@@ -194,7 +493,9 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:v
     try {
       const url = new URL(value, location.href);
       return ["https:","http:"].includes(url.protocol) ? url.href : "";
-    } catch { return ""; }
+    } catch {
+      return "";
+    }
   }
 
   function render() {
@@ -204,94 +505,131 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:v
     $("heroBio").textContent = content.bio || "";
     $("displayFocus").textContent = content.focus || "";
 
-    $("skillsGrid").innerHTML = (content.skills || []).map(s => {
-      const n = Math.max(0, Math.min(100, Number(s.level) || 0));
+    $("skillsGrid").innerHTML = (content.skills || []).map(skill => {
+      const level = Math.max(0, Math.min(100, Number(skill.level) || 0));
       return `<article class="card">
-        <h3>${esc(s.name)}</h3><span class="tag">${n}%</span>
-        <div class="track"><span style="width:${n}%"></span></div>
-        <p>${esc(s.description || "")}</p>
+        <h3>${esc(skill.name)}</h3>
+        <span class="tag">${level}%</span>
+        <div class="track"><span style="width:${level}%"></span></div>
+        <p>${esc(skill.description || "")}</p>
       </article>`;
     }).join("") || "<p>No skills added yet.</p>";
 
-    $("projectsGrid").innerHTML = (content.projects || []).map(p => {
-      const n = Math.max(0, Math.min(100, Number(p.progress) || 0));
+    $("projectsGrid").innerHTML = (content.projects || []).map(project => {
+      const level = Math.max(0, Math.min(100, Number(project.progress) || 0));
       return `<article class="card">
-        <div class="status">${esc(p.status || "Planned")}</div>
-        <h3 style="margin-top:9px">${esc(p.title)}</h3>
-        <p>${esc(p.description || "")}</p>
-        <div class="track"><span style="width:${n}%"></span></div>
-        <p>${n}% complete · ${esc(p.date || "")}</p>
+        <div class="status">${esc(project.status || "Planned")}</div>
+        <h3 style="margin-top:9px">${esc(project.title)}</h3>
+        <p>${esc(project.description || "")}</p>
+        <div class="track"><span style="width:${level}%"></span></div>
+        <p>${level}% complete · ${esc(project.date || "")}</p>
       </article>`;
     }).join("") || "<p>No projects added yet.</p>";
 
-    $("galleryGrid").innerHTML = (content.gallery || []).map(g => {
-      const url = safeUrl(typeof g === "string" ? g : g.url);
+    $("galleryGrid").innerHTML = (content.gallery || []).map(item => {
+      const url = safeUrl(typeof item === "string" ? item : item.url);
       if (!url) return "";
-      const title = typeof g === "string" ? "LYX Gallery" : (g.title || "LYX Gallery");
-      return `<article class="card"><img class="gallery-img" src="${esc(url)}" alt="${esc(title)}" loading="lazy"><h3 style="margin-top:12px">${esc(title)}</h3></article>`;
+      const title = typeof item === "string" ? "LYX Gallery" : (item.title || "LYX Gallery");
+      return `<article class="card">
+        <img class="gallery-img" src="${esc(url)}" alt="${esc(title)}" loading="lazy">
+        <h3 style="margin-top:12px">${esc(title)}</h3>
+      </article>`;
     }).join("") || "<p>Gallery is waiting for new images.</p>";
 
-    $("postsGrid").innerHTML = (content.posts || []).map(p =>
-      `<article class="card"><div class="eyebrow">${esc(p.date || "")}</div><h3 style="margin-top:9px">${esc(p.title)}</h3><p>${esc(p.description || "")}</p></article>`
+    $("postsGrid").innerHTML = (content.posts || []).map(post =>
+      `<article class="card">
+        <div class="eyebrow">${esc(post.date || "")}</div>
+        <h3 style="margin-top:9px">${esc(post.title)}</h3>
+        <p>${esc(post.description || "")}</p>
+      </article>`
     ).join("") || "<p>No posts yet.</p>";
-
-    $("socialsBox").innerHTML = (content.socials || []).map(s => {
-      const url = safeUrl(s.url);
-      return url ? `<p><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(s.name || "Link")} ↗</a></p>` : "";
-    }).join("") || "<p>No social links yet.</p>";
 
     $("contentEditor").value = JSON.stringify(content, null, 2);
   }
 
   async function loadContent() {
+    if (loading) return;
+    loading = true;
     $("ownerStatus").textContent = "Loading portfolio data...";
-    const { data, error } = await db.from(TABLE)
-      .select("content")
-      .eq("id", "main")
-      .maybeSingle();
 
-    if (error) {
-      $("ownerStatus").textContent = "Could not load cloud data: " + error.message;
-      return;
+    try {
+      const {data, error} = await db
+        .from(TABLE)
+        .select("content")
+        .eq("id", "main")
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (data?.content && typeof data.content === "object") {
+        content = {...structuredClone(defaults), ...data.content};
+      } else {
+        content = structuredClone(defaults);
+      }
+
+      render();
+      $("ownerStatus").textContent = data
+        ? "Cloud data loaded."
+        : "No saved cloud content yet. Default content is displayed.";
+    } catch (error) {
+      $("ownerStatus").textContent =
+        "Could not load cloud data: " + (error.message || "Unknown error");
+    } finally {
+      loading = false;
     }
-    if (data && data.content && typeof data.content === "object") {
-      content = {...structuredClone(defaults), ...data.content};
-    }
-    render();
-    $("ownerStatus").textContent = "Portfolio data loaded.";
   }
 
   async function updateSession(session) {
     currentSession = session;
     const email = session?.user?.email?.toLowerCase();
     isOwner = Boolean(email && email === OWNER_EMAIL.toLowerCase());
+
     $("ownerPanel").classList.toggle("hidden", !isOwner);
-    $("loginToggle").classList.toggle("hidden", isOwner);
-    if (isOwner) $("ownerStatus").textContent = "Logged in as owner: " + email;
+    $("loginBox").classList.add("hidden");
+
+    if (isOwner) {
+      $("ownerStatus").textContent = "Owner authenticated: " + email;
+    }
   }
 
-  $("loginToggle").addEventListener("click", () => {
-    $("loginBox").classList.toggle("hidden");
+  $("ownerBtn").addEventListener("click", async () => {
+    const panel = $("ownerPanel");
+    const login = $("loginBox");
+
+    if (isOwner && panel) {
+      panel.classList.remove("hidden");
+      panel.scrollIntoView({behavior:"smooth",block:"start"});
+      return;
+    }
+
+    login.classList.remove("hidden");
+    login.scrollIntoView({behavior:"smooth",block:"center"});
+    $("email").focus({preventScroll:true});
   });
 
   $("loginForm").addEventListener("submit", async event => {
     event.preventDefault();
     $("loginStatus").textContent = "Logging in...";
+
     const email = $("email").value.trim();
     const password = $("password").value;
-    const {data, error} = await db.auth.signInWithPassword({email, password});
+    const {data, error} = await db.auth.signInWithPassword({email,password});
+
     if (error) {
       $("loginStatus").textContent = "Login failed: " + error.message;
       return;
     }
+
     if (data.user?.email?.toLowerCase() !== OWNER_EMAIL.toLowerCase()) {
       await db.auth.signOut();
       $("loginStatus").textContent = "This account is not the configured owner.";
       return;
     }
+
     $("loginStatus").textContent = "Login successful.";
     await updateSession(data.session);
     await loadContent();
+    $("ownerPanel").scrollIntoView({behavior:"smooth",block:"start"});
   });
 
   $("saveBtn").addEventListener("click", async () => {
@@ -299,107 +637,6 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:v
       $("ownerStatus").textContent = "Owner login required.";
       return;
     }
+
     let edited;
-    try {
-      edited = JSON.parse($("contentEditor").value);
-      if (!edited || typeof edited !== "object" || Array.isArray(edited)) {
-        throw new Error("The root value must be a JSON object.");
-      }
-    } catch (error) {
-      $("ownerStatus").textContent = "Invalid JSON: " + error.message;
-      return;
-    }
-    $("saveBtn").disabled = true;
-    $("ownerStatus").textContent = "Saving to cloud...";
-    const {error} = await db.from(TABLE).upsert({
-      id: "main",
-      content: edited,
-      updated_at: new Date().toISOString()
-    }, {onConflict:"id"});
-    $("saveBtn").disabled = false;
-    if (error) {
-      $("ownerStatus").textContent = "Save failed: " + error.message;
-      return;
-    }
-    content = {...structuredClone(defaults), ...edited};
-    render();
-    $("ownerStatus").textContent = "Saved successfully. Visitors can now see the changes.";
-  });
-
-  $("reloadBtn").addEventListener("click", loadContent);
-
-  $("logoutBtn").addEventListener("click", async () => {
-    await db.auth.signOut();
-    await updateSession(null);
-    $("loginBox").classList.add("hidden");
-    $("ownerStatus").textContent = "Logged out.";
-  });
-
-  $("uploadBtn").addEventListener("click", async () => {
-    if (!isOwner || !currentSession) {
-      $("uploadResult").textContent = "Owner login required.";
-      return;
-    }
-    const file = $("uploadFile").files[0];
-    if (!file) {
-      $("uploadResult").textContent = "Choose an image first.";
-      return;
-    }
-    if (!file.type.startsWith("image/")) {
-      $("uploadResult").textContent = "Only image files are allowed.";
-      return;
-    }
-    if (file.size > 10 * 1024 * 1024) {
-      $("uploadResult").textContent = "Image must be 10 MB or smaller.";
-      return;
-    }
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = `${Date.now()}-${safeName}`;
-    $("uploadResult").textContent = "Uploading...";
-    const {error} = await db.storage.from(BUCKET).upload(path, file, {
-      upsert: false,
-      contentType: file.type
-    });
-    if (error) {
-      $("uploadResult").textContent = "Upload failed: " + error.message;
-      return;
-    }
-    const {data} = db.storage.from(BUCKET).getPublicUrl(path);
-    const url = data.publicUrl;
-    $("uploadResult").innerHTML = "";
-    const msg = document.createElement("p");
-    msg.textContent = "Upload complete. Public URL:";
-    const link = document.createElement("a");
-    link.href = url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = url;
-    const copy = document.createElement("button");
-    copy.textContent = "Copy URL";
-    copy.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(url);
-        copy.textContent = "Copied!";
-      } catch {
-        copy.textContent = "Copy failed — select the URL.";
-      }
-    });
-    $("uploadResult").append(msg, link, document.createElement("br"), copy);
-  });
-
-  db.auth.onAuthStateChange((_event, session) => {
-    updateSession(session);
-  });
-
-  async function start() {
-    $("year").textContent = new Date().getFullYear();
-    render();
-    const {data} = await db.auth.getSession();
-    await updateSession(data.session);
-    await loadContent();
-  }
-  start();
-})();
-</script>
-</body>
-</html>
+    
