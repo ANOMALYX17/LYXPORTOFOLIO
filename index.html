@@ -1,16 +1,16 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080817">
-<meta name="description" content="LYX personal portfolio — projects, skills and creative work.">
-<title>LYX | Personal Portfolio</title>
+<meta name="description" content="LYX personal portfolio">
+<title>LYX | Portfolio</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-:root{
+:root {
   --bg:#080817;
   --panel:#111128;
   --panel2:#171733;
@@ -19,697 +19,680 @@
   --text:#f4f5ff;
   --muted:#a4a6c4;
   --border:#29294b;
+  --shadow:0 18px 60px #0007;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:135px}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
 body{
-  margin:0;
-  background:radial-gradient(ellipse at top,#17133d 0%,var(--bg) 55%);
-  color:var(--text);
-  font-family:system-ui,-apple-system,sans-serif;
-  min-height:100vh;
-}
-a{color:var(--blue);text-decoration:none}
-button,input,textarea,select{font:inherit}
-button{
-  border:1px solid #45457b;
-  border-radius:10px;
-  padding:10px 14px;
-  color:white;
-  background:#191936;
-  cursor:pointer;
-}
-button:hover{border-color:var(--blue)}
-button:disabled{opacity:.5;cursor:wait}
-.primary{
-  background:linear-gradient(100deg,#286de9,#8050e7);
-  border:0;
-}
-input,textarea,select{
-  width:100%;
-  padding:12px;
-  border-radius:9px;
-  background:#09091a;
-  border:1px solid var(--border);
-  color:white;
-  margin:7px 0 13px;
-}
-textarea{min-height:280px;resize:vertical;font-family:monospace;font-size:12px}
-label{font-size:13px;color:var(--muted)}
-.logo{
-  font-size:25px;
-  font-weight:950;
-  letter-spacing:4px;
-  background:linear-gradient(90deg,var(--blue),var(--purple));
-  background-clip:text;
-  -webkit-background-clip:text;
-  color:transparent;
-}
-.header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:#080817ed;
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
-  padding:13px clamp(14px,4vw,45px);
-  box-shadow:0 5px 25px #0002;
-}
-.header-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.nav,.tools{
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:5px;
-}
-.nav{margin-top:12px}
-.nav a,.tools a,.tools button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:8px 11px;
-  border:1px solid transparent;
-  border-radius:9px;
-  color:#b9bad8;
-  background:transparent;
-  white-space:nowrap;
-  font-size:12px;
-}
-.nav a:hover,.tools a:hover{
-  color:white;
-  border-color:#41416b;
-  background:#17172f;
-}
-.tools .owner-button{
-  border-color:#5d4ca0;
-  color:#c4b4ff;
-  cursor:pointer;
-}
-main{max-width:1080px;margin:auto;padding:30px 20px 65px}
-section{margin-top:44px;scroll-margin-top:140px}
-.hero{padding:50px 0 28px;margin-top:0}
-.eyebrow{
-  color:var(--blue);
-  letter-spacing:2.5px;
-  font-size:11px;
-  font-weight:850;
-}
-h1{font-size:clamp(42px,9vw,78px);line-height:1.03;margin:14px 0}
-h2{font-size:24px;margin:0 0 18px}
-h3{font-size:17px;margin:0 0 9px}
-.gradient{
-  background:linear-gradient(90deg,#58bdff,#a77aff);
-  background-clip:text;
-  -webkit-background-clip:text;
-  color:transparent;
-}
-p{line-height:1.7;color:var(--muted)}
-.hero p{max-width:590px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid #45457b;
-  border-radius:10px;
-  padding:10px 15px;
-  color:white;
-  background:#191936;
-  font-size:13px;
-}
-.btn.primary{background:linear-gradient(100deg,#286de9,#8050e7);border:0}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));
-  gap:14px;
-}
-.card{
-  min-width:0;
-  padding:19px;
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:linear-gradient(145deg,#15152e,#0e0e20);
-}
-.card p{font-size:14px;overflow-wrap:anywhere}
-.tag{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:7px;
-  background:#202044;
-  color:#b8c6ff;
-  font-size:11px;
-  margin:3px 3px 3px 0;
-}
-.track{
-  height:7px;
-  background:#292944;
-  border-radius:20px;
-  overflow:hidden;
-  margin:12px 0;
-}
-.track span{
-  display:block;height:100%;
-  background:linear-gradient(90deg,var(--blue),var(--purple));
-}
-.status{color:#7fe3b0;font-size:12px}
-.gallery-img{
-  width:100%;aspect-ratio:16/10;
-  object-fit:cover;border-radius:10px;
-}
-.contact-card{
-  display:flex;flex-direction:column;
-  min-height:205px;
-  padding:20px;
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:linear-gradient(145deg,#15152e,#0e0e20);
-  color:var(--text);
-  transition:transform .2s,border-color .2s;
-}
-.contact-card:hover{transform:translateY(-3px);border-color:#7667ff}
-.contact-icon{
-  display:grid;place-items:center;
-  width:44px;height:44px;
-  border:1px solid #393765;
-  border-radius:12px;
-  background:#202044;
-  font-size:21px;margin-bottom:17px;
-}
-.contact-action{color:#75baff;font-size:12px;font-weight:750;margin-top:auto}
-.muted{color:var(--muted)}
-.notice{
-  padding:12px;
-  border-radius:9px;
-  background:#191936;
-  color:#c5c9ff;
-  font-size:13px;
-  overflow-wrap:anywhere;
-}
-.hidden{display:none!important}
-hr{border:0;border-top:1px solid var(--border);margin:23px 0}
-footer{
-  text-align:center;border-top:1px solid var(--border);
-  padding:25px;color:var(--muted);font-size:12px;
+  margin:0;color:var(--text);background:
+  radial-gradient(ellipse at 10% 0%,#24205c66,transparent 40%),
+  radial-gradient(ellipse at 90% 20%,#122b5666,transparent 35%),var(--bg);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.6;transition:background .2s,color .2s
 }
 body.light{
-  --bg:#f4f5ff;--panel:#fff;--panel2:#eeeefe;
-  --text:#18182d;--muted:#555875;--border:#d5d6ec;
-  background:#f4f5ff;color:var(--text);
+  --bg:#f1f2ff;--panel:#fff;--panel2:#e8eaff;
+  --text:#17172d;--muted:#656783;--border:#d5d7f0;
+  --shadow:0 18px 60px #31365c20;
 }
-body.light .header{background:#f4f5ffed}
-body.light .card,body.light .contact-card{background:#fff}
-body.light input,body.light textarea,body.light select{background:#fff;color:#18182d}
-body.light .nav a,body.light .tools a{color:#555875}
-@media(max-width:650px){
-  .header{padding:12px}
-  .header-top{align-items:flex-start}
-  .tools{justify-content:flex-start}
-  .nav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
-  .nav a{flex-shrink:0}
-  .nav a,.tools a,.tools button{padding:8px;font-size:11px}
-  main{padding:24px 15px 55px}
-  .hero{padding-top:38px}
+button,input,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,
+textarea:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.container{width:min(1120px,calc(100% - 32px));margin:auto}
+.header{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(18px);border-bottom:1px solid var(--border)
+}
+.header-inner{padding:12px 0}
+.header-top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{
+  font-size:27px;font-weight:950;letter-spacing:3px;
+  background:linear-gradient(100deg,var(--blue),var(--purple));
+  color:transparent;background-clip:text
+}
+.tools,.nav{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.tools{justify-content:flex-end}
+.tools button,.tools a,.nav a{
+  color:var(--text);font-size:13px;border:1px solid var(--border);
+  border-radius:10px;padding:8px 11px;background:var(--panel);transition:.2s
+}
+.tools button:hover,.tools a:hover,.nav a:hover,.nav a.active{
+  border-color:var(--blue);color:var(--blue);box-shadow:0 0 15px #4ba8ff20
+}
+.owner-button{background:linear-gradient(100deg,#267fd8,#7950d8)!important;color:white!important;border-color:transparent!important}
+.nav{margin-top:12px;padding-bottom:2px}
+.nav a{background:transparent;border-color:transparent}
+.hero{min-height:380px;display:flex;flex-direction:column;justify-content:center;padding:65px 0}
+.eyebrow{color:var(--blue);text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:800}
+.hero h1{font-size:clamp(43px,9vw,82px);line-height:1.05;margin:12px 0;letter-spacing:-3px}
+.gradient-text{background:linear-gradient(100deg,var(--blue),var(--purple));color:transparent;background-clip:text}
+.hero p{max-width:650px;color:var(--muted);font-size:17px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.btn{
+  border:1px solid var(--border);background:var(--panel);color:var(--text);
+  border-radius:11px;padding:10px 15px;display:inline-flex;align-items:center;
+  justify-content:center;gap:7px;transition:.2s
+}
+.btn:hover{transform:translateY(-2px);border-color:var(--blue)}
+.btn.primary{background:linear-gradient(100deg,#267fd8,#7950d8);color:white;border-color:transparent}
+.btn.danger{border-color:#ff647c66;color:#ff647c}
+.section{padding:35px 0;scroll-margin-top:120px}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.section-heading h2{font-size:clamp(25px,5vw,36px);margin:0;letter-spacing:-1px}
+.section-heading p{margin:4px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card{
+  min-width:0;padding:19px;background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--border);border-radius:17px;box-shadow:var(--shadow);overflow-wrap:anywhere
+}
+.card h3{margin:0 0 8px;font-size:18px}
+.card p{color:var(--muted);margin:5px 0 12px;white-space:pre-wrap}
+.card-image{display:block;width:calc(100% + 38px);max-width:none;height:180px;object-fit:cover;background:var(--panel2);margin:-19px -19px 15px}
+.tag-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.tag{border:1px solid #7950d866;color:var(--blue);background:#4ba8ff0d;border-radius:999px;padding:4px 9px;font-size:12px}
+.status{display:inline-block;font-size:11px;color:var(--blue);background:#4ba8ff14;border:1px solid #4ba8ff44;border-radius:999px;padding:3px 8px;margin-bottom:8px}
+.progress-track{height:7px;background:var(--border);border-radius:99px;overflow:hidden;margin:12px 0 7px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:inherit}
+.meta{font-size:12px;color:var(--muted)}
+.empty{grid-column:1/-1;padding:25px;text-align:center;border:1px dashed var(--border);border-radius:15px;color:var(--muted)}
+.contact-card{display:flex;flex-direction:column;gap:5px}
+.contact-card a{color:var(--blue);overflow-wrap:anywhere}
+.contact-card a:hover{text-decoration:underline}
+.notice{padding:12px 14px;border:1px solid var(--border);background:var(--panel);border-radius:12px;color:var(--muted);font-size:13px}
+
+/* Small footer credit */
+footer{border-top:1px solid var(--border);margin-top:40px;padding:22px 0;text-align:center;color:var(--muted);font-size:12px}
+footer .credit{font-size:10px;opacity:.75;margin-top:3px}
+
+/* Popup UI */
+.modal-backdrop{
+  position:fixed;inset:0;z-index:100;display:none;align-items:center;
+  justify-content:center;padding:16px;background:#03030bcc;backdrop-filter:blur(10px)
+}
+.modal-backdrop.open{display:flex}
+.modal{
+  width:min(540px,100%);max-height:85vh;overflow-y:auto;
+  background:var(--panel);color:var(--text);border:1px solid var(--border);
+  border-radius:20px;box-shadow:0 20px 100px #0009,0 0 35px #7950d822;
+  animation:popIn .18s ease-out
+}
+.modal.wide{width:min(850px,100%)}
+@keyframes popIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-header{
+  position:sticky;top:0;z-index:2;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;padding:17px 20px;
+  background:var(--panel);border-bottom:1px solid var(--border)
+}
+.modal-header h2{margin:0;font-size:21px}
+.close-modal{width:36px;height:36px;border:1px solid var(--border);border-radius:10px;background:var(--panel2);color:var(--text);font-size:21px}
+.modal-body{padding:20px}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.setting-row:last-child{border-bottom:0}
+.setting-row p,.modal-note{color:var(--muted);font-size:13px;margin:3px 0 0}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.field input,.field textarea{
+  display:block;width:100%;padding:11px 12px;color:var(--text);
+  background:var(--bg);border:1px solid var(--border);border-radius:10px
+}
+.field textarea{min-height:320px;resize:vertical;font:12px/1.6 ui-monospace,Consolas,monospace}
+.form-actions{display:flex;flex-wrap:wrap;gap:9px}
+.message{margin-top:12px;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.message.error{color:#ff647c}
+.message.success{color:#65e6b1}
+[hidden]{display:none!important}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:330px;padding:45px 0}.hero h1{letter-spacing:-2px}.tools{justify-content:flex-start}}
+@media(max-width:500px){
+  .container{width:calc(100% - 22px)}
+  .grid{grid-template-columns:1fr}
+  .tools button,.tools a{padding:7px 9px;font-size:12px}
+  .nav{gap:2px}.nav a{padding:7px 8px;font-size:12px}
+  .hero p{font-size:15px}.modal-body{padding:15px}
 }
 </style>
 </head>
 
 <body>
 <header class="header">
-  <div class="header-top">
-    <a class="logo" href="#about">LYX.</a>
-    <div class="tools">
-      <button class="owner-button" id="ownerBtn" type="button">♙ Owner</button>
-      <a href="#settings">⚙ Settings</a>
-      <a href="#credits">✦ Credits</a>
-      <a href="#socials">✉ Contact</a>
+  <div class="container header-inner">
+    <div class="header-top">
+      <a class="logo" href="#home">LYX.</a>
+      <div class="tools">
+        <button class="owner-button" id="ownerBtn" type="button">♙ Owner</button>
+        <button id="openSettings" type="button">⚙ Settings</button>
+        <a href="#contact">✉ Contact</a>
+      </div>
     </div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#posts">Posts</a>
+    </nav>
   </div>
-  <nav class="nav" aria-label="Main navigation">
-    <a href="#about">Home</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#posts">Posts</a>
-  </nav>
 </header>
 
-<main>
-  <section class="hero" id="about">
-    <div class="eyebrow">PERSONAL PORTFOLIO / CREATIVE SPACE</div>
-    <h1>WELCOME TO<br><span class="gradient" id="heroName">LYX WORLD.</span></h1>
-    <p id="heroBio">A personal space for creativity, performance, projects, and progress.</p>
-    <div class="actions">
+<main class="container">
+  <section class="hero" id="home">
+    <span class="eyebrow" id="heroEyebrow">CREATIVE PORTFOLIO</span>
+    <h1 id="heroTitle">WELCOME TO<br><span class="gradient-text">LYX WORLD.</span></h1>
+    <p id="heroDescription">A personal space for projects, skills, creativity, and progress.</p>
+    <div class="hero-actions">
       <a class="btn primary" href="#projects">Explore Projects ↗</a>
-      <a class="btn" href="#skills">My Skills</a>
+      <a class="btn" href="#contact">Contact Me</a>
     </div>
   </section>
 
-  <section>
-    <div class="grid">
-      <article class="card">
-        <div class="eyebrow">IDENTITY</div>
-        <h3 id="displayName">LYX</h3>
-        <p id="displayRole">Creative individual</p>
-      </article>
-      <article class="card">
-        <div class="eyebrow">CURRENT FOCUS</div>
-        <h3 id="displayFocus">Building my future</h3>
-        <p>Learning, creating, and documenting the journey.</p>
-      </article>
-      <article class="card">
-        <div class="eyebrow">PORTFOLIO</div>
-        <h3>Creative Archive</h3>
-        <p>Projects, skills, and updates in one place.</p>
-      </article>
-    </div>
-  </section>
-
-  <section id="skills">
-    <h2>✦ Skills</h2>
+  <section class="section" id="skills">
+    <div class="section-heading"><div><h2>Skills<span class="gradient-text">.</span></h2><p>What I'm learning and developing.</p></div></div>
     <div class="grid" id="skillsGrid"></div>
   </section>
 
-  <section id="projects">
-    <h2>◈ Projects & Progress</h2>
+  <section class="section" id="projects">
+    <div class="section-heading"><div><h2>Projects<span class="gradient-text">.</span></h2><p>Ideas, experiments, and ongoing work.</p></div></div>
     <div class="grid" id="projectsGrid"></div>
   </section>
 
-  <section id="gallery">
-    <h2>▧ Gallery</h2>
+  <section class="section" id="gallery">
+    <div class="section-heading"><div><h2>Gallery<span class="gradient-text">.</span></h2><p>A collection of visual work.</p></div></div>
     <div class="grid" id="galleryGrid"></div>
   </section>
 
-  <section id="posts">
-    <h2>✧ Latest Posts</h2>
+  <section class="section" id="posts">
+    <div class="section-heading"><div><h2>Posts<span class="gradient-text">.</span></h2><p>Updates, thoughts, and announcements.</p></div></div>
     <div class="grid" id="postsGrid"></div>
   </section>
 
-  <section id="socials">
-    <div class="eyebrow">LYX · PROFESSIONAL CONTACT</div>
-    <h2 style="font-size:clamp(30px,5vw,44px);margin-top:10px">
-      Let's <span class="gradient">Connect.</span>
-    </h2>
-    <p style="max-width:580px">
-      For professional inquiries, agency communication,
-      collaboration opportunities, and portfolio-related matters.
-    </p>
-    <div class="grid" style="margin-top:22px">
-
-      <a class="contact-card" href="mailto:fitrianajunk12@gmail.com?subject=Professional%20Inquiry%20-%20LYX">
-        <div class="contact-icon">✉</div>
-        <div class="eyebrow">01 / EMAIL</div>
-        <h3>Email Inquiry</h3>
-        <p>Professional communication and inquiries.</p>
-        <span class="contact-action">Send an email ↗</span>
-      </a>
-
-      <a class="contact-card" href="https://open.kakao.com/" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">💬</div>
-        <div class="eyebrow">02 / KAKAOTALK</div>
-        <h3>KakaoTalk</h3>
-        <p>Connect through KakaoTalk.</p>
-        <span class="contact-action">Open KakaoTalk ↗</span>
-      </a>
-
-      <a class="contact-card" href="https://wa.me/" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">☏</div>
-        <div class="eyebrow">03 / WHATSAPP</div>
-        <h3>WhatsApp</h3>
-        <p>Direct communication when a contact number is available.</p>
-        <span class="contact-action">Open WhatsApp ↗</span>
-      </a>
-
-      <a class="contact-card" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">◎</div>
-        <div class="eyebrow">04 / INSTAGRAM</div>
-        <h3>Instagram</h3>
-        <p>Social profile and creative updates.</p>
-        <span class="contact-action">Open Instagram ↗</span>
-      </a>
-
-      <a class="contact-card" href="https://github.com/anomalyx17" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">⌘</div>
-        <div class="eyebrow">05 / GITHUB</div>
-        <h3>Development Portfolio</h3>
-        <p>Explore my website and development projects.</p>
-        <span class="contact-action">View GitHub ↗</span>
-      </a>
-
-    </div>
-    <p class="muted" style="font-size:11px;margin-top:20px">
-      LYX · Professional inquiries and creative opportunities.
-    </p>
-  </section>
-
-  <section id="settings">
-    <h2>⚙ Settings</h2>
+  <section class="section" id="contact">
+    <div class="section-heading"><div><h2>Contact<span class="gradient-text">.</span></h2><p>For professional inquiries and collaborations.</p></div></div>
     <div class="grid">
-      <article class="card">
-        <h3>Appearance</h3>
-        <p>Switch between the original dark theme and a light theme.</p>
-        <button id="themeBtn" type="button">Switch to Light Theme</button>
+      <article class="card contact-card">
+        <h3>✉ Email</h3><p>Professional inquiries.</p>
+        <a href="mailto:fitrianajunk12@gmail.com?subject=Professional%20Inquiry%20-%20LYX">fitrianajunk12@gmail.com</a>
       </article>
-      <article class="card">
-        <h3>Portfolio Data</h3>
-        <p>Reload the latest public content stored in Supabase.</p>
-        <button id="refreshBtn" type="button">Refresh Content</button>
+      <article class="card contact-card">
+        <h3>☏ KakaoTalk</h3><p>Open KakaoTalk.</p>
+        <a href="https://open.kakao.com/" target="_blank" rel="noopener noreferrer">KakaoTalk ↗</a>
+        <span class="meta">Tambahkan link profil pribadi di data portfolio.</span>
+      </article>
+      <article class="card contact-card">
+        <h3>☏ WhatsApp</h3><p>Open WhatsApp.</p>
+        <a href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+        <span class="meta">Tambahkan link chat pribadi di data portfolio.</span>
+      </article>
+      <article class="card contact-card">
+        <h3>◎ Instagram</h3><p>Social updates.</p>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        <span class="meta">Tambahkan username pribadi di data portfolio.</span>
+      </article>
+      <article class="card contact-card">
+        <h3>⌘ GitHub</h3><p>Code and development.</p>
+        <a href="https://github.com/anomalyx17" target="_blank" rel="noopener noreferrer">github.com/anomalyx17 ↗</a>
       </article>
     </div>
   </section>
 
-  <section id="credits">
-    <h2>✦ Credits</h2>
-    <div class="card">
-      <div class="eyebrow">CREATED BY LYX</div>
-      <h3 style="margin-top:10px">Ideas into reality.</h3>
-      <p>
-        Portfolio concept, personal projects, and creative direction by LYX.
-        Website development assisted by ChatGPT.
-      </p>
-      <p class="muted" style="font-size:12px">
-        Built with HTML, CSS, JavaScript, and Supabase.
-      </p>
-    </div>
-  </section>
-
-  <section id="ownerPanel" class="hidden">
-    <h2>♙ Owner Dashboard</h2>
-    <p>Only the designated owner account should be allowed to save content.</p>
-    <div class="notice" id="ownerStatus">Checking owner access...</div>
-
-    <label for="contentEditor">Portfolio content (JSON)</label>
-    <textarea id="contentEditor" spellcheck="false"></textarea>
-
-    <div class="actions">
-      <button class="primary" id="saveBtn" type="button">Save Changes</button>
-      <button id="reloadBtn" type="button">Reload Cloud Data</button>
-      <button id="logoutBtn" type="button">Log Out</button>
-    </div>
-
-    <hr>
-    <h3>How to edit</h3>
-    <p>
-      Change project titles, progress, status, skills, gallery items, and posts
-      in the JSON editor above, then select Save Changes.
-    </p>
-    <p class="notice">
-      Gallery items can use an image URL. Upload the image to a public image
-      host or your configured Supabase Storage bucket first.
-    </p>
-  </section>
-
-  <section id="loginBox" class="hidden">
-    <div class="card">
-      <h2>Owner Login</h2>
-      <p>Sign in with the owner account created in Supabase Authentication.</p>
-      <form id="loginForm">
-        <label for="email">Owner email</label>
-        <input id="email" type="email" autocomplete="username" required>
-        <label for="password">Password</label>
-        <input id="password" type="password" autocomplete="current-password" required>
-        <button class="primary" type="submit">Log In</button>
-      </form>
-      <p id="loginStatus" role="status"></p>
-    </div>
-  </section>
+  <footer>
+    <div>© <span id="year"></span> LYX. All rights reserved.</div>
+    <div class="credit">Website assisted by Brother (ChatGPT).</div>
+  </footer>
 </main>
 
-<footer>
-  © <span id="year"></span> LYX · Personal Portfolio
-</footer>
+<!-- SETTINGS POPUP -->
+<div class="modal-backdrop" id="settingsModal" aria-hidden="true">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal-header">
+      <h2 id="settingsTitle">⚙ Settings</h2>
+      <button class="close-modal" type="button" data-close="settingsModal" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="setting-row">
+        <div><strong>Appearance</strong><p>Switch between dark and light mode.</p></div>
+        <button class="btn" id="themeBtn" type="button">☀ Light mode</button>
+      </div>
+      <div class="setting-row">
+        <div><strong>Refresh portfolio</strong><p>Reload content from the cloud.</p></div>
+        <button class="btn" id="refreshBtn" type="button">↻ Refresh</button>
+      </div>
+      <div class="setting-row">
+        <div><strong>Owner dashboard</strong><p>Login to edit portfolio content.</p></div>
+        <button class="btn primary" id="settingsOwnerBtn" type="button">♙ Open Owner</button>
+      </div>
+      <p class="message" id="settingsMessage" aria-live="polite"></p>
+    </div>
+  </section>
+</div>
+
+<!-- OWNER LOGIN + DASHBOARD POPUP -->
+<div class="modal-backdrop" id="ownerModal" aria-hidden="true">
+  <section class="modal wide" role="dialog" aria-modal="true" aria-labelledby="ownerTitle">
+    <div class="modal-header">
+      <h2 id="ownerTitle">♙ Owner Dashboard</h2>
+      <button class="close-modal" type="button" data-close="ownerModal" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="loginView">
+        <p class="modal-note">Login menggunakan akun Owner yang diizinkan.</p>
+        <form id="loginForm">
+          <div class="field">
+            <label for="ownerEmail">Owner email</label>
+            <input id="ownerEmail" type="email" autocomplete="username" placeholder="Email Owner" required>
+          </div>
+          <div class="field">
+            <label for="ownerPassword">Password</label>
+            <input id="ownerPassword" type="password" autocomplete="current-password" placeholder="Password akun Supabase" required>
+          </div>
+          <div class="form-actions"><button class="btn primary" id="loginBtn" type="submit">Login</button></div>
+        </form>
+        <p class="message" id="loginMessage" aria-live="polite"></p>
+      </div>
+
+      <div id="dashboardView" hidden>
+        <p class="notice">Edit JSON di bawah, lalu tekan Save to Cloud. Pastikan format JSON valid.</p>
+        <div class="field" style="margin-top:16px">
+          <label for="contentEditor">Portfolio JSON</label>
+          <textarea id="contentEditor" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn primary" id="saveBtn" type="button">Save to Cloud</button>
+          <button class="btn" id="reloadEditorBtn" type="button">Reload Cloud</button>
+          <button class="btn danger" id="logoutBtn" type="button">Logout</button>
+        </div>
+        <p class="message" id="editorMessage" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+</div>
 
 <script>
 (() => {
   "use strict";
 
-  // Public Supabase project configuration.
-  // Never put a service_role key or account password in this file.
   const SUPABASE_URL = "https://mubsgqwybswrnnmpvacs.supabase.co";
   const SUPABASE_KEY = "sb_publishable_yyBMLJ3WMziG_cCWp9Yyxg_l6rYBK09";
   const OWNER_EMAIL = "fitrianajunk12@gmail.com";
-  const TABLE = "lyx_portfolio";
-
-  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   const $ = id => document.getElementById(id);
 
   const defaults = {
-    name: "LYX",
-    role: "Creative individual · Future performer",
-    bio: "Welcome to my personal space. Here I document my skills, creative projects, and progress.",
-    focus: "Dance · Music · Creative Projects",
-    skills: [
-      {name:"Dance",level:35,description:"Practice and choreography"},
-      {name:"Creative Direction",level:20,description:"Ideas, concepts, and storytelling"},
-      {name:"Web Development",level:20,description:"Learning HTML, CSS, and JavaScript"}
+    eyebrow:"CREATIVE PORTFOLIO",
+    title:"WELCOME TO\nLYX WORLD.",
+    description:"A personal space for projects, skills, creativity, and progress.",
+    skills:[
+      {name:"Web Development",description:"Learning HTML, CSS, and JavaScript.",level:35,status:"Learning",tags:["HTML","CSS","JavaScript"]},
+      {name:"Dance",description:"Practicing choreography and performance.",level:55,status:"Practicing",tags:["Dance","Performance"]},
+      {name:"Creative Direction",description:"Exploring concepts and storytelling.",level:30,status:"Developing",tags:["Concept","Creative"]}
     ],
-    projects: [
-      {title:"Dance Practice",date:"2026",status:"In Progress",progress:25,description:"Learning choreography and improving performance."},
-      {title:"LYX Portfolio",date:"2026",status:"In Progress",progress:70,description:"Building a personal portfolio website."}
+    projects:[
+      {title:"LYX Portfolio",description:"A personal portfolio for skills and creative work.",status:"In progress",progress:70,date:"2026",tags:["Web","Portfolio"],url:"https://github.com/anomalyx17/LYXPORTOFOLIO"},
+      {title:"Moonwalkin' Dance Project",description:"Learning and practicing choreography.",status:"Practicing",progress:50,date:"2026",tags:["Dance","Practice"],url:""},
+      {title:"Creative Projects",description:"A place to document new ideas and experiments.",status:"Planning",progress:10,date:"2026",tags:["Creative"],url:""}
     ],
-    gallery: [],
-    posts: [
-      {title:"Welcome to LYX",date:"2026",description:"My portfolio is online. More projects coming soon."}
+    gallery:[
+      {title:"Creative Space",description:"Add your project image URL here.",image:"",url:""},
+      {title:"Work in Progress",description:"Showcase a project or creative process.",image:"",url:""}
+    ],
+    posts:[
+      {title:"Welcome to my portfolio",description:"This is where I share projects, progress, and creative work.",date:"2026",tags:["Update"]}
     ]
   };
 
+  let db = null;
+  let user = null;
   let content = structuredClone(defaults);
-  let isOwner = false;
-  let currentSession = null;
   let loading = false;
+  let saving = false;
 
-  function esc(value) {
-    return String(value ?? "").replace(/[&<>"']/g, ch => ({
+  function esc(v) {
+    return String(v ?? "").replace(/[&<>"']/g, c => ({
       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-    })[ch]);
+    })[c]);
   }
 
-  function safeUrl(value) {
+  function safeURL(v) {
     try {
-      const url = new URL(value, location.href);
-      return ["https:","http:"].includes(url.protocol) ? url.href : "";
-    } catch {
-      return "";
+      const u = new URL(String(v));
+      return ["https:","http:"].includes(u.protocol) ? u.href : "";
+    } catch (_) { return ""; }
+  }
+
+  function message(id, text, type="") {
+    const el = $(id);
+    el.textContent = text;
+    el.className = "message" + (type ? " " + type : "");
+  }
+
+  function busy(button, state, label="Please wait...") {
+    if (!button) return;
+    if (state) {
+      button.dataset.oldText = button.textContent;
+      button.disabled = true;
+      button.textContent = label;
+    } else {
+      button.disabled = false;
+      if (button.dataset.oldText) button.textContent = button.dataset.oldText;
+      delete button.dataset.oldText;
     }
+  }
+
+  function openModal(id) {
+    $(id).classList.add("open");
+    $(id).setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(id) {
+    const el = $(id);
+    el.classList.remove("open");
+    el.setAttribute("aria-hidden","true");
+    if (!document.querySelector(".modal-backdrop.open")) document.body.style.overflow = "";
+  }
+
+  function closeAll() {
+    document.querySelectorAll(".modal-backdrop.open").forEach(m => closeModal(m.id));
+  }
+
+  function normalise(data) {
+    const result = {
+      ...structuredClone(defaults),
+      ...(data && typeof data === "object" && !Array.isArray(data) ? data : {})
+    };
+    ["skills","projects","gallery","posts"].forEach(k => {
+      if (!Array.isArray(result[k])) result[k] = structuredClone(defaults[k]);
+    });
+    return result;
+  }
+
+  function tagsHTML(tags) {
+    return Array.isArray(tags)
+      ? `<div class="tag-list">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>`
+      : "";
   }
 
   function render() {
-    $("heroName").textContent = (content.name || "LYX") + ".";
-    $("displayName").textContent = content.name || "LYX";
-    $("displayRole").textContent = content.role || "";
-    $("heroBio").textContent = content.bio || "";
-    $("displayFocus").textContent = content.focus || "";
+    $("heroEyebrow").textContent = content.eyebrow || defaults.eyebrow;
+    $("heroTitle").innerHTML = esc(content.title || defaults.title)
+      .replace(/\n/g,"<br>")
+      .replace(/LYX WORLD\./g,'<span class="gradient-text">LYX WORLD.</span>');
+    $("heroDescription").textContent = content.description || defaults.description;
 
-    $("skillsGrid").innerHTML = (content.skills || []).map(skill => {
-      const level = Math.max(0, Math.min(100, Number(skill.level) || 0));
-      return `<article class="card">
-        <h3>${esc(skill.name)}</h3>
-        <span class="tag">${level}%</span>
-        <div class="track"><span style="width:${level}%"></span></div>
-        <p>${esc(skill.description || "")}</p>
+    $("skillsGrid").innerHTML = content.skills.length ? content.skills.map(x => {
+      const n = Math.max(0,Math.min(100,Number(x.level)||0));
+      return `<article class="card"><span class="status">${esc(x.status||"Learning")}</span>
+        <h3>${esc(x.name||"Untitled")}</h3><p>${esc(x.description||"")}</p>
+        <div class="progress-track"><div class="progress-fill" style="width:${n}%"></div></div>
+        <div class="meta">${n}% progress</div>${tagsHTML(x.tags)}</article>`;
+    }).join("") : `<div class="empty">Belum ada skill.</div>`;
+
+    $("projectsGrid").innerHTML = content.projects.length ? content.projects.map(x => {
+      const n = Math.max(0,Math.min(100,Number(x.progress)||0));
+      const url = safeURL(x.url);
+      return `<article class="card"><span class="status">${esc(x.status||"Planning")}</span>        <h3>${esc(x.title || "Untitled Project")}</h3>
+        <p>${esc(x.description || "")}</p>
+        <div class="progress">
+          <div class="progress-fill" style="width:${n}%"></div>
+        </div>
+        <small>${n}% Complete</small>
+        ${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">View Project ↗</a>` : ""}
       </article>`;
-    }).join("") || "<p>No skills added yet.</p>";
+    }).join("") : `<p class="empty">No projects published yet.</p>`;
 
-    $("projectsGrid").innerHTML = (content.projects || []).map(project => {
-      const level = Math.max(0, Math.min(100, Number(project.progress) || 0));
-      return `<article class="card">
-        <div class="status">${esc(project.status || "Planned")}</div>
-        <h3 style="margin-top:9px">${esc(project.title)}</h3>
-        <p>${esc(project.description || "")}</p>
-        <div class="track"><span style="width:${level}%"></span></div>
-        <p>${level}% complete · ${esc(project.date || "")}</p>
-      </article>`;
-    }).join("") || "<p>No projects added yet.</p>";
+    $("galleryGrid").innerHTML = (content.gallery || []).length
+      ? content.gallery.map(x => {
+          const url = safeURL(x.url);
+          return `<article class="card">
+            ${url ? `<img src="${url}" alt="${esc(x.title || "Gallery image")}" loading="lazy">` : ""}
+            <h3>${esc(x.title || "Untitled")}</h3>
+            <p>${esc(x.description || "")}</p>
+          </article>`;
+        }).join("")
+      : `<p class="empty">Gallery is empty.</p>`;
 
-    $("galleryGrid").innerHTML = (content.gallery || []).map(item => {
-      const url = safeUrl(typeof item === "string" ? item : item.url);
-      if (!url) return "";
-      const title = typeof item === "string" ? "LYX Gallery" : (item.title || "LYX Gallery");
-      return `<article class="card">
-        <img class="gallery-img" src="${esc(url)}" alt="${esc(title)}" loading="lazy">
-        <h3 style="margin-top:12px">${esc(title)}</h3>
-      </article>`;
-    }).join("") || "<p>Gallery is waiting for new images.</p>";
-
-    $("postsGrid").innerHTML = (content.posts || []).map(post =>
-      `<article class="card">
-        <div class="eyebrow">${esc(post.date || "")}</div>
-        <h3 style="margin-top:9px">${esc(post.title)}</h3>
-        <p>${esc(post.description || "")}</p>
-      </article>`
-    ).join("") || "<p>No posts yet.</p>";
-
-    $("contentEditor").value = JSON.stringify(content, null, 2);
+    $("postsGrid").innerHTML = (content.posts || []).length
+      ? content.posts.map(x => `<article class="card">
+          <span class="status">${esc(x.date || "")}</span>
+          <h3>${esc(x.title || "Untitled Post")}</h3>
+          <p>${esc(x.body || "")}</p>
+        </article>`).join("")
+      : `<p class="empty">No posts published yet.</p>`;
   }
 
-  async function loadContent() {
-    if (loading) return;
-    loading = true;
-    $("ownerStatus").textContent = "Loading portfolio data...";
+  // =========================
+  // MODALS
+  // =========================
 
-    try {
-      const {data, error} = await db
-        .from(TABLE)
-        .select("content")
-        .eq("id", "main")
-        .maybeSingle();
-
-      if (error) throw error;
-
-      if (data?.content && typeof data.content === "object") {
-        content = {...structuredClone(defaults), ...data.content};
-      } else {
-        content = structuredClone(defaults);
-      }
-
-      render();
-      $("ownerStatus").textContent = data
-        ? "Cloud data loaded."
-        : "No saved cloud content yet. Default content is displayed.";
-    } catch (error) {
-      $("ownerStatus").textContent =
-        "Could not load cloud data: " + (error.message || "Unknown error");
-    } finally {
-      loading = false;
-    }
+  function openModal(id) {
+    const modal = $(id);
+    if (!modal) return;
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
   }
 
-  async function updateSession(session) {
-    currentSession = session;
-    const email = session?.user?.email?.toLowerCase();
-    isOwner = Boolean(email && email === OWNER_EMAIL.toLowerCase());
-
-    $("ownerPanel").classList.toggle("hidden", !isOwner);
-    $("loginBox").classList.add("hidden");
-
-    if (isOwner) {
-      $("ownerStatus").textContent = "Owner authenticated: " + email;
-    }
+  function closeModal(id) {
+    const modal = $(id);
+    if (!modal) return;
+    modal.style.display = "none";
+    document.body.style.overflow = "";
   }
 
-  $("ownerBtn").addEventListener("click", async () => {
-    const panel = $("ownerPanel");
-    const login = $("loginBox");
-
-    if (isOwner && panel) {
-      panel.classList.remove("hidden");
-      panel.scrollIntoView({behavior:"smooth",block:"start"});
-      return;
-    }
-
-    login.classList.remove("hidden");
-    login.scrollIntoView({behavior:"smooth",block:"center"});
-    $("email").focus({preventScroll:true});
+  document.querySelectorAll("[data-close]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      closeModal(btn.dataset.close);
+    });
   });
 
-  $("loginForm").addEventListener("submit", async event => {
-    event.preventDefault();
-    $("loginStatus").textContent = "Logging in...";
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", e => {
+      if (e.target === modal) closeModal(modal.id);
+    });
+  });
 
-    const email = $("email").value.trim();
-    const password = $("password").value;
-    const {data, error} = await db.auth.signInWithPassword({email,password});
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      document.querySelectorAll(".modal").forEach(modal => {
+        modal.style.display = "none";
+      });
+      document.body.style.overflow = "";
+    }
+  });
+
+  // =========================
+  // SETTINGS
+  // =========================
+
+  $("settingsBtn")?.addEventListener("click", () => {
+    openModal("settingsModal");
+  });
+
+  $("themeToggle")?.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+    localStorage.setItem(
+      "lyx-theme",
+      document.body.classList.contains("light") ? "light" : "dark"
+    );
+  });
+
+  if (localStorage.getItem("lyx-theme") === "light") {
+    document.body.classList.add("light");
+  }
+
+  $("refreshBtn")?.addEventListener("click", async () => {
+    await loadPortfolio();
+    alert("Portfolio refreshed!");
+  });
+
+  // =========================
+  // SUPABASE
+  // =========================
+
+  const SUPABASE_URL = "https://mubsgqwybswrnnmpvacs.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_yyBMLJ3WMziG_cCWp9Yyxg_l6rYBK09";
+  const OWNER_EMAIL = "fitrianajunk12@gmail.com";
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  let currentUser = null;
+
+  async function loadPortfolio() {
+    const { data, error } = await db
+      .from("lyx_portfolio")
+      .select("content")
+      .eq("id", "main")
+      .maybeSingle();
 
     if (error) {
-      $("loginStatus").textContent = "Login failed: " + error.message;
+      console.error("Portfolio load error:", error);
       return;
     }
 
-    if (data.user?.email?.toLowerCase() !== OWNER_EMAIL.toLowerCase()) {
-      await db.auth.signOut();
-      $("loginStatus").textContent = "This account is not the configured owner.";
-      return;
+    if (data?.content) {
+      content = data.content;
     }
 
-    $("loginStatus").textContent = "Login successful.";
-    await updateSession(data.session);
-    await loadContent();
-    $("ownerPanel").scrollIntoView({behavior:"smooth",block:"start"});
+    render();
+  }
+
+  // =========================
+  // OWNER LOGIN
+  // =========================
+
+  $("ownerBtn")?.addEventListener("click", async () => {
+    const { data } = await db.auth.getUser();
+    currentUser = data?.user || null;
+
+    updateOwnerPanel();
+    openModal("ownerModal");
   });
 
-  $("saveBtn").addEventListener("click", async () => {
-    if (!isOwner || !currentSession) {
-      $("ownerStatus").textContent = "Owner login required.";
+  function updateOwnerPanel() {
+    const loginPanel = $("loginPanel");
+    const dashboardPanel = $("dashboardPanel");
+
+    const isOwner =
+      currentUser?.email?.toLowerCase() === OWNER_EMAIL.toLowerCase();
+
+    if (loginPanel) {
+      loginPanel.style.display = isOwner ? "none" : "block";
+    }
+
+    if (dashboardPanel) {
+      dashboardPanel.style.display = isOwner ? "block" : "none";
+    }
+
+    if (isOwner && $("jsonEditor")) {
+      $("jsonEditor").value = JSON.stringify(content, null, 2);
+    }
+  }
+
+  $("loginBtn")?.addEventListener("click", async () => {
+    const email = $("ownerEmail").value.trim();
+    const password = $("ownerPassword").value;
+
+    if (!email || !password) {
+      alert("Enter your email and password.");
       return;
     }
 
-    let edited;
-    try {
-      edited = JSON.parse($("contentEditor").value);
-      if (!edited || typeof edited !== "object" || Array.isArray(edited)) {
-        throw new Error("The root value must be a JSON object.");
-      }
-    } catch (error) {
-      $("ownerStatus").textContent = "Invalid JSON: " + error.message;
+    if (email.toLowerCase() !== OWNER_EMAIL.toLowerCase()) {
+      alert("This email is not registered as the LYX Owner.");
       return;
     }
 
-    $("saveBtn").disabled = true;
-    $("ownerStatus").textContent = "Saving to cloud...";
+    const { data, error } = await db.auth.signInWithPassword({
+      email,
+      password
+    });
 
-    try {
-      const {error} = await db.from(TABLE).upsert({
-        id:"main",
-        content:edited,
-        updated_at:new Date().toISOString()
-      }, {onConflict:"id"});
-
-      if (error) throw error;
-
-      content = {...structuredClone(defaults), ...edited};
-      render();
-      $("ownerStatus").textContent = "Saved successfully. Cloud data updated.";
-    } catch (error) {
-      $("ownerStatus").textContent = "Save failed: " + error.message;
-    } finally {
-      $("saveBtn").disabled = false;
-    }
-  });
-
-  $("reloadBtn").addEventListener("click", loadContent);
-  $("refreshBtn").addEventListener("click", loadContent);
-
-  $("logoutBtn").addEventListener("click", async () => {
-    const {error} = await db.auth.signOut();
     if (error) {
-      $("ownerStatus").textContent = "Logout failed: " + error.message;
+      alert(error.message);
       return;
     }
-    await updateSession(null);
-    $("ownerStatus").textContent = "Logged out.";
-    $("loginBox").classList.add("hidden");
-    $("ownerBtn").scrollIntoView({behavior:"smooth",block:"nearest"});
+
+    currentUser = data.user;
+    $("ownerPassword").value = "";
+    updateOwnerPanel();
   });
 
-  $("themeBtn").addEventListener("click", () => {
-    const light = document.body.classList.toggle("light");
-    $("themeBtn").textContent = light ? "Switch to Neon Dark Theme" : "Switch to Light Theme";
-  });
+  // =========================
+  // SAVE PORTFOLIO
+  // =========================
 
-  db.auth.onAuthStateChange((_event, session) => {
-    updateSession(session);
-  });
+  $("saveBtn")?.addEventListener("click", async () => {
+    if (
+      !currentUser ||
+      currentUser.email?.toLowerCase() !== OWNER_EMAIL.toLowerCase()
+    ) {
+      alert("Owner access required.");
+      return;
+    }
 
-  async function start() {
-    $("year").textContent = new Date().getFullYear();
+    let updatedContent;
+
+    try {
+      updatedContent = JSON.parse($("jsonEditor").value);
+    } catch (error) {
+      alert("Invalid JSON format. Please check your editor.");
+      return;
+    }
+
+    const { error } = await db
+      .from("lyx_portfolio")
+      .upsert({
+        id: "main",
+        content: updatedContent,
+        updated_at: new Date().toISOString()
+      });
+
+    if (error) {
+      console.error(error);
+      alert("Failed to save: " + error.message);
+      return;
+    }
+
+    content = updatedContent;
     render();
 
-    const {data, error} = await db.auth.getSession();
-    if (error) {
-      $("ownerStatus").textContent = "Authentication error: " + error.message;
+    alert("Portfolio successfully saved to Supabase!");
+  });
+
+  // =========================
+  // LOGOUT
+  // =========================
+
+  $("logoutBtn")?.addEventListener("click", async () => {
+    await db.auth.signOut();
+    currentUser = null;
+    updateOwnerPanel();
+    alert("Logged out successfully.");
+  });
+
+  // =========================
+  // INITIALIZATION
+  // =========================
+
+  async function init() {
+    if ($("year")) {
+      $("year").textContent = new Date().getFullYear();
     }
 
-    await updateSession(data?.session || null);
-    await loadContent();
+    await loadPortfolio();
+
+    const { data } = await db.auth.getUser();
+    currentUser = data?.user || null;
+
+    updateOwnerPanel();
   }
 
-  start();
-})();
+  init();
+
 </script>
 </body>
 </html>
+        
