@@ -639,4 +639,77 @@ body.light .nav a,body.light .tools a{color:#555875}
     }
 
     let edited;
-    
+    try {
+      edited = JSON.parse($("contentEditor").value);
+      if (!edited || typeof edited !== "object" || Array.isArray(edited)) {
+        throw new Error("The root value must be a JSON object.");
+      }
+    } catch (error) {
+      $("ownerStatus").textContent = "Invalid JSON: " + error.message;
+      return;
+    }
+
+    $("saveBtn").disabled = true;
+    $("ownerStatus").textContent = "Saving to cloud...";
+
+    try {
+      const {error} = await db.from(TABLE).upsert({
+        id:"main",
+        content:edited,
+        updated_at:new Date().toISOString()
+      }, {onConflict:"id"});
+
+      if (error) throw error;
+
+      content = {...structuredClone(defaults), ...edited};
+      render();
+      $("ownerStatus").textContent = "Saved successfully. Cloud data updated.";
+    } catch (error) {
+      $("ownerStatus").textContent = "Save failed: " + error.message;
+    } finally {
+      $("saveBtn").disabled = false;
+    }
+  });
+
+  $("reloadBtn").addEventListener("click", loadContent);
+  $("refreshBtn").addEventListener("click", loadContent);
+
+  $("logoutBtn").addEventListener("click", async () => {
+    const {error} = await db.auth.signOut();
+    if (error) {
+      $("ownerStatus").textContent = "Logout failed: " + error.message;
+      return;
+    }
+    await updateSession(null);
+    $("ownerStatus").textContent = "Logged out.";
+    $("loginBox").classList.add("hidden");
+    $("ownerBtn").scrollIntoView({behavior:"smooth",block:"nearest"});
+  });
+
+  $("themeBtn").addEventListener("click", () => {
+    const light = document.body.classList.toggle("light");
+    $("themeBtn").textContent = light ? "Switch to Neon Dark Theme" : "Switch to Light Theme";
+  });
+
+  db.auth.onAuthStateChange((_event, session) => {
+    updateSession(session);
+  });
+
+  async function start() {
+    $("year").textContent = new Date().getFullYear();
+    render();
+
+    const {data, error} = await db.auth.getSession();
+    if (error) {
+      $("ownerStatus").textContent = "Authentication error: " + error.message;
+    }
+
+    await updateSession(data?.session || null);
+    await loadContent();
+  }
+
+  start();
+})();
+</script>
+</body>
+</html>
