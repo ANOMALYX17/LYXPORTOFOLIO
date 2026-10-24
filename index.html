@@ -3,19 +3,40 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#080817;--panel:#12122a;--panel2:#191935;--text:#f5f5ff;--muted:#a7a8c7;--line:#303052;--blue:#49a8ff;--purple:#9b68ff;--danger:#ff748e}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:125px}body{margin:0;font:15px/1.55 system-ui,-apple-system,sans-serif;color:var(--text);background:radial-gradient(ellipse at 5% 0%,#26205d66,transparent 43%),radial-gradient(ellipse at 95% 25%,#10295677,transparent 42%),var(--bg);min-height:100vh}body.light{--bg:#f3f4ff;--panel:#fff;--panel2:#e9ebff;--text:#18182f;--muted:#60627e;--line:#d6d7ef}button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.wrap{width:min(1100px,calc(100% - 32px));margin:auto}.header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}.top,.tools,.nav,.actions,.between{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.top,.between{justify-content:space-between}.top{padding:13px 0}.logo{font-size:29px;font-weight:950;letter-spacing:3px;background:linear-gradient(100deg,var(--blue),var(--purple));color:transparent;background-clip:text}.nav{padding:0 0 12px}.nav a,.tools a,.tools button,.btn{border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:9px 13px;font-size:13px}.nav a{background:transparent;border-color:transparent}.btn.primary,.owner{background:linear-gradient(110deg,#2789e5,#7950d8)!important;color:#fff!important;border-color:transparent!important}.btn.danger{color:var(--danger);border-color:#ff748e66}.btn:hover,.nav a:hover{border-color:var(--blue)}.hero{min-height:320px;display:flex;flex-direction:column;justify-content:center;padding:55px 0}.eyebrow{color:var(--blue);font-size:12px;letter-spacing:3px;font-weight:800}.hero h1{font-size:clamp(42px,9vw,78px);letter-spacing:-2px;line-height:1.08;margin:12px 0}.gradient{background:linear-gradient(90deg,var(--blue),var(--purple));color:transparent;background-clip:text}.muted,.hero p,.heading p,.card p{color:var(--muted)}.hero p{max-width:620px}.section{padding:34px 0;scroll-margin-top:125px}.heading{margin-bottom:20px}.heading h2{font-size:clamp(26px,5vw,35px);margin:0}.heading p{margin:4px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{min-width:0;padding:18px;background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:17px;overflow-wrap:anywhere}.card h3{margin:4px 0 8px}.card p{white-space:pre-wrap;margin:8px 0}.card img{width:100%;max-height:250px;object-fit:cover;border-radius:10px}.card a{color:var(--blue);overflow-wrap:anywhere}.status{font-size:12px;color:var(--blue);display:inline-block}.tag{display:inline-block;font-size:12px;padding:3px 9px;margin:3px;border-radius:99px;border:1px solid var(--line);color:var(--blue)}.progress{height:7px;border-radius:99px;background:var(--line);overflow:hidden;margin:12px 0 5px}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple))}.empty{grid-column:1/-1;border:1px dashed var(--line);border-radius:15px;color:var(--muted);padding:24px;text-align:center}.small{font-size:12px;color:var(--muted)}footer{text-align:center;border-top:1px solid var(--line);margin-top:40px;padding:24px;color:var(--muted);font-size:12px}.credit{font-size:10px;opacity:.75}.overlay{position:fixed;inset:0;z-index:100;background:#03030bd9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:12px}.overlay.open{display:flex}.modal{width:min(550px,100%);max-height:90dvh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:20px}.modal.wide{width:min(850px,100%)}.modal-head{position:sticky;top:0;z-index:2;background:var(--panel);border-bottom:1px solid var(--line);padding:15px 18px;display:flex;align-items:center;justify-content:space-between}.modal-head h2{margin:0;font-size:22px}.modal-body{padding:18px}.close{width:37px;height:37px;font-size:23px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text)}.field{margin:12px 0}.field label{display:block;font-weight:650;font-size:13px;margin-bottom:5px}.field input,.field textarea,.field select{display:block;width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;min-width:0}.field textarea{min-height:100px;resize:vertical}.field input[type=checkbox]{width:auto;display:inline-block;accent-color:#6b80ff}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.tabs button.active{border-color:var(--blue);color:var(--blue)}.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;margin:9px 0;flex-wrap:wrap}.item strong{overflow-wrap:anywhere}.item .actions{gap:6px}.item .btn{padding:6px 10px}.notice{border:1px solid var(--line);border-radius:10px;padding:11px;color:var(--muted);font-size:13px}.msg{font-size:13px;color:var(--muted);min-height:20px}.msg.error{color:var(--danger)}.msg.success{color:#65e6b1}[hidden]{display:none!important}@media(max-width:740px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.wrap{width:calc(100% - 22px)}.grid,.two{grid-template-columns:1fr}.tools a,.tools button,.nav a{font-size:12px;padding:7px 9px}.modal-body{padding:14px}}
-.preview{display:block;max-width:100%;max-height:230px;object-fit:contain;border-radius:10px;margin:10px 0}.field input[type=file]{padding:12px}.field input[type=file]::file-selector-button{border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--panel2);color:var(--text);margin-right:10px}</style></head><body>
+.preview{display:block;max-width:100%;max-height:230px;object-fit:contain;border-radius:10px;margin:10px 0}.field input[type=file]{padding:12px}.field input[type=file]::file-selector-button{border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--panel2);color:var(--text);margin-right:10px}
+/* LYX editorial refresh: quieter, less template-like; functional dashboard remains intact. */
+:root{--bg:#0b0d12;--panel:#141821;--panel2:#1b202a;--text:#f2f1ec;--muted:#a2a6af;--line:#303641;--blue:#a4c7ff;--purple:#c0a9e9}
+body{font-family:Arial,Helvetica,sans-serif;line-height:1.65;background:var(--bg);letter-spacing:.005em}
+body.light{--bg:#f3f1eb;--panel:#fffefa;--panel2:#eae7e0;--text:#1a2028;--muted:#5d6470;--line:#d3d0c8;--blue:#315d94;--purple:#6c4f87}
+.wrap{width:min(1160px,calc(100% - 48px))}
+.header{background:var(--bg);position:relative;border-bottom:1px solid var(--line)}
+.top{padding:24px 0 17px}.logo{font-size:27px;font-weight:900;letter-spacing:-2px;background:none;color:var(--text)}
+.logo:after{content:' / archive';font-size:11px;font-weight:400;letter-spacing:.13em;color:var(--muted);vertical-align:middle;margin-left:10px;text-transform:uppercase}
+.nav{gap:30px;padding:0 0 17px}.nav a{padding:0;background:none;border:0;border-radius:0;color:var(--muted);font-size:12px;letter-spacing:.11em;text-transform:uppercase}.nav a:hover{color:var(--text);border:0}
+.tools{gap:7px}.tools a,.tools button{background:transparent;border:1px solid var(--line);border-radius:3px;padding:7px 11px;font-size:12px}
+.owner,.btn.primary{background:var(--text)!important;color:var(--bg)!important;border-color:var(--text)!important}
+.hero{min-height:470px;max-width:920px;padding:95px 0 105px;position:relative}.eyebrow{color:var(--muted);font-size:11px;letter-spacing:.23em;font-weight:600}
+.hero h1{font-size:clamp(53px,10vw,116px);letter-spacing:-.075em;line-height:.99;font-weight:800;margin:24px 0 27px}
+.gradient{background:none;color:var(--blue)}.hero p{font-size:17px;line-height:1.8;max-width:540px}
+.actions{gap:11px}.btn{border-radius:3px;background:transparent;padding:11px 16px;font-size:12px;letter-spacing:.04em}
+.section{padding:62px 0 75px;border-top:1px solid var(--line)}.heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:31px}.heading h2{font-size:clamp(30px,5vw,49px);letter-spacing:-.06em;line-height:1.1;font-weight:750}.heading p{font-size:12px;max-width:270px;text-align:right}
+.grid{gap:12px}.card{background:var(--panel);border-radius:3px;padding:23px;transition:border-color .2s,transform .2s}.card:hover{border-color:var(--muted);transform:translateY(-2px)}.card h3{font-size:19px;line-height:1.25;letter-spacing:-.035em;margin:16px 0 12px}.card p{font-size:13px;line-height:1.75}.card img{border-radius:1px;max-height:320px;aspect-ratio:4/3;object-fit:cover;margin-bottom:12px}.card a{font-size:12px;text-decoration:underline;text-underline-offset:4px}.status{color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase}.tag{border-radius:2px;color:var(--muted);font-size:10px;margin:4px 5px 0 0}.progress{height:3px;border-radius:0;background:var(--line)}.fill{background:var(--blue)}.empty{border-radius:2px;text-align:left;padding:32px}footer{text-align:left;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-top:15px;padding:30px 0}.credit{font-size:10px}
+.modal,.close,.field input,.field textarea,.field select,.item,.notice{border-radius:4px}.tabs button.active{color:var(--text);border-color:var(--text)}
+@media(max-width:740px){.heading{display:block}.heading p{text-align:left;margin-top:10px}.hero{min-height:390px;padding:75px 0}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.wrap{width:calc(100% - 32px)}.hero h1{font-size:clamp(51px,13vw,76px)}.grid,.two{grid-template-columns:1fr}.nav{gap:16px;overflow-x:auto;flex-wrap:nowrap}.nav a{white-space:nowrap}.logo:after{display:none}.tools a,.tools button{padding:6px 8px}.card{padding:20px}}
+</style></head><body>
 <header class="header"><div class="wrap"><div class="top"><a class="logo" href="#home">LYX.</a><div class="tools"><button class="owner" id="ownerBtn">♙ Owner</button><button id="settingsBtn">⚙ Settings</button><a href="#contact">✉ Contact</a></div></div><nav class="nav"><a href="#home">Home</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#gallery">Gallery</a><a href="#posts">Posts</a></nav></div></header>
-<main class="wrap"><section class="hero" id="home"><span class="eyebrow" id="eyebrow">CREATIVE PORTFOLIO</span><h1 id="heroTitle">WELCOME TO<br><span class="gradient">LYX WORLD.</span></h1><p id="description"></p><div class="actions"><a class="btn primary" href="#projects">Explore Projects ↗</a><a class="btn" href="#contact">Contact Me</a></div></section>
-<section class="section" id="skills"><div class="heading"><h2>Skills<span class="gradient">.</span></h2><p>What I'm learning and developing.</p></div><div class="grid" id="skillsGrid"></div></section>
-<section class="section" id="projects"><div class="heading"><h2>Projects<span class="gradient">.</span></h2><p>Ideas, experiments, and ongoing work.</p></div><div class="grid" id="projectsGrid"></div></section>
-<section class="section" id="gallery"><div class="heading"><h2>Gallery<span class="gradient">.</span></h2><p>A collection of visual work.</p></div><div class="grid" id="galleryGrid"></div></section>
-<section class="section" id="posts"><div class="heading"><h2>Posts<span class="gradient">.</span></h2><p>Updates, thoughts, and announcements.</p></div><div class="grid" id="postsGrid"></div></section>
-<section class="section" id="contact"><div class="heading"><h2>Contact<span class="gradient">.</span></h2><p>For professional inquiries and collaborations.</p></div><div class="grid">
+<main class="wrap"><section class="hero" id="home"><span class="eyebrow" id="eyebrow">LYX / PERSONAL ARCHIVE</span><h1 id="heroTitle">A place for<br><span class="gradient">what I make.</span></h1><p id="description"></p><div class="actions"><a class="btn primary" href="#projects">See the work ↗</a><a class="btn" href="#contact">Get in touch</a></div></section>
+<section class="section" id="skills"><div class="heading"><h2>Skills<span class="gradient">.</span></h2><p>Things I work on and keep exploring.</p></div><div class="grid" id="skillsGrid"></div></section>
+<section class="section" id="projects"><div class="heading"><h2>Projects<span class="gradient">.</span></h2><p>Selected work, including the unfinished parts.</p></div><div class="grid" id="projectsGrid"></div></section>
+<section class="section" id="gallery"><div class="heading"><h2>Gallery<span class="gradient">.</span></h2><p>Frames and fragments from the process.</p></div><div class="grid" id="galleryGrid"></div></section>
+<section class="section" id="posts"><div class="heading"><h2>Posts<span class="gradient">.</span></h2><p>Notes from along the way.</p></div><div class="grid" id="postsGrid"></div></section>
+<section class="section" id="contact"><div class="heading"><h2>Contact<span class="gradient">.</span></h2><p>Find me elsewhere.</p></div><div class="grid" id="contactGrid">
 <article class="card"><h3>✉ Email</h3><p>Professional inquiries.</p><a href="mailto:fitrianajunk12@gmail.com">fitrianajunk12@gmail.com</a></article><article class="card"><h3>☏ KakaoTalk</h3><p>Personal link not added yet.</p><a href="https://open.kakao.com/" target="_blank" rel="noopener">KakaoTalk ↗</a></article><article class="card"><h3>☏ WhatsApp</h3><p>Personal link not added yet.</p><a href="https://www.whatsapp.com/" target="_blank" rel="noopener">WhatsApp ↗</a></article><article class="card"><h3>◎ Instagram</h3><p>Personal link not added yet.</p><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram ↗</a></article><article class="card"><h3>⌘ GitHub</h3><p>Code and development.</p><a href="https://github.com/anomalyx17" target="_blank" rel="noopener">github.com/anomalyx17 ↗</a></article></div></section>
 <footer>© <span id="year"></span> LYX. All rights reserved.<div class="credit">Website assisted by Brother (ChatGPT).</div></footer></main>
 <div class="overlay" id="settingsModal"><div class="modal"><div class="modal-head"><h2>⚙ Settings</h2><button class="close" data-close="settingsModal">×</button></div><div class="modal-body"><div class="item"><span>Appearance</span><button class="btn" id="themeBtn">Switch theme</button></div><div class="item"><span>Refresh cloud data</span><button class="btn" id="refreshBtn">↻ Refresh</button></div><div class="item"><span>Owner Dashboard</span><button class="btn primary" id="settingsOwner">Open Owner</button></div><p class="msg" id="settingsMsg"></p></div></div></div>
 <div class="overlay" id="ownerModal"><div class="modal wide"><div class="modal-head"><h2>♙ Owner Dashboard</h2><button class="close" data-close="ownerModal">×</button></div><div class="modal-body"><div id="loginView"><p class="muted">Login dengan akun Owner Supabase Auth.</p><form id="loginForm"><div class="field"><label>Email</label><input id="ownerEmail" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="ownerPassword" type="password" required autocomplete="current-password"></div><button class="btn primary" id="loginBtn" type="submit">Login</button></form><p class="msg" id="loginMsg"></p></div>
-<div id="dashboardView" hidden><div class="between"><p class="muted">Buat dan kelola konten lu sendiri. Perubahan disimpan ke cloud.</p><button class="btn" id="logoutBtn">Logout</button></div><div class="tabs" id="tabs"><button class="btn active" data-tab="skills">Skills</button><button class="btn" data-tab="projects">Projects</button><button class="btn" data-tab="gallery">Gallery</button><button class="btn" data-tab="posts">Posts</button><button class="btn" data-tab="profile">Home</button></div>
+<div id="dashboardView" hidden><div class="between"><p class="muted">Buat dan kelola konten lu sendiri. Perubahan disimpan ke cloud.</p><button class="btn" id="logoutBtn">Logout</button></div><div class="tabs" id="tabs"><button class="btn active" data-tab="skills">Skills</button><button class="btn" data-tab="projects">Projects</button><button class="btn" data-tab="gallery">Gallery</button><button class="btn" data-tab="posts">Posts</button><button class="btn" data-tab="profile">Home</button><button class="btn" data-tab="contact">Contact</button></div>
 <div id="listPanel"><div class="between"><h3 id="listTitle">Skills</h3><button class="btn primary" id="addBtn">+ Create</button></div><div id="items"></div><p class="notice">Draft tidak muncul di website publik sampai lu Publish. Konten lama dari database tetap aman; lu bisa edit atau hapus satu-satu.</p></div>
 <form id="editForm" hidden><div class="between"><h3 id="formTitle">Create</h3><button type="button" class="btn" id="cancelEdit">← Back</button></div><div id="fields"></div><div class="actions"><button class="btn primary" type="submit" id="saveItem">Save to Cloud</button><button class="btn" type="button" id="saveDraft">Save as Draft</button></div></form><p class="msg" id="ownerMsg"></p></div></div></div></div>
 <script>
@@ -23,17 +44,18 @@
 const BUCKET="lyx-media";
 const URL_DB="https://mubsgqwybswrnnmpvacs.supabase.co",KEY="sb_publishable_yyBMLJ3WMziG_cCWp9Yyxg_l6rYBK09",OWNER="fitrianajunk12@gmail.com";
 const $=id=>document.getElementById(id);
-const initial=()=>({eyebrow:"CREATIVE PORTFOLIO",title:"WELCOME TO\nLYX WORLD.",description:"A personal space for projects, skills, creativity, and progress.",skills:[],projects:[],gallery:[],posts:[]});
+const initial=()=>({eyebrow:"LYX / PERSONAL ARCHIVE",title:"WELCOME TO\nLYX WORLD.",description:"A personal space for projects, skills, creativity, and progress.",skills:[],projects:[],gallery:[],posts:[],contact:[{title:"Email",description:"Professional inquiries.",label:"fitrianajunk12@gmail.com",url:"mailto:fitrianajunk12@gmail.com"},{title:"KakaoTalk",description:"Personal link not added yet.",label:"KakaoTalk ↗",url:"https://open.kakao.com/"},{title:"WhatsApp",description:"Personal link not added yet.",label:"WhatsApp ↗",url:"https://www.whatsapp.com/"},{title:"Instagram",description:"Personal link not added yet.",label:"Instagram ↗",url:"https://www.instagram.com/"},{title:"GitHub",description:"Code and development.",label:"github.com/anomalyx17 ↗",url:"https://github.com/anomalyx17"}]});
 let content=initial(),db=null,user=null,tab="skills",editIndex=-1,editing=false,loaded=false;
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safe=v=>{try{let u=new URL(String(v));return ["https:","http:"].includes(u.protocol)?u.href:""}catch{return ""}};
+const contactUrl=v=>{let t=String(v||"").trim();if(/^mailto:[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(t))return t;return safe(t)};
 const tags=v=>Array.isArray(v)?v.map(t=>`<span class="tag">${esc(t)}</span>`).join(""):"";
 const num=v=>Math.max(0,Math.min(100,Number(v)||0));
 const arr=k=>Array.isArray(content[k])?content[k]:[];
 const published=x=>x.published!==false; // old saved entries remain visible until explicitly unpublished
-function normalise(v){let o={...initial(),...(v&&typeof v==="object"&&!Array.isArray(v)?v:{})};["skills","projects","gallery","posts"].forEach(k=>{if(!Array.isArray(o[k]))o[k]=[]});return o}
+function normalise(v){let o={...initial(),...(v&&typeof v==="object"&&!Array.isArray(v)?v:{})};["skills","projects","gallery","posts","contact"].forEach(k=>{if(!Array.isArray(o[k]))o[k]=[]});return o}
 function render(){
- $("eyebrow").textContent=content.eyebrow||"CREATIVE PORTFOLIO";
+ $("eyebrow").textContent=content.eyebrow||"LYX / PERSONAL ARCHIVE";
  $("heroTitle").innerHTML=esc(content.title||"WELCOME TO\nLYX WORLD.").replace(/\n/g,"<br>").replace(/LYX WORLD\./g,'<span class="gradient">LYX WORLD.</span>');
  $("description").textContent=content.description||"";
  const empty='<div class="empty">Belum ada konten yang dipublikasikan.</div>';
@@ -41,40 +63,197 @@ function render(){
  s=arr("projects").filter(published);$("projectsGrid").innerHTML=s.length?s.map(x=>{let n=num(x.progress),u=safe(x.url);return `<article class="card"><span class="status">${esc(x.status||"Planning")}</span><h3>${esc(x.title)}</h3><p>${esc(x.description)}</p><div class="small">${esc(x.date||"")}</div><div class="progress"><div class="fill" style="width:${n}%"></div></div><span class="small">${n}% progress</span><div>${tags(x.tags)}</div>${u?`<p><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">View Project ↗</a></p>`:""}</article>`}).join(""):empty;
  s=arr("gallery").filter(published);$("galleryGrid").innerHTML=s.length?s.map(x=>{let u=safe(x.image||x.url);return `<article class="card">${u?`<img src="${esc(u)}" loading="lazy" alt="${esc(x.title)}">`:""}<h3>${esc(x.title)}</h3><p>${esc(x.description)}</p></article>`}).join(""):empty;
  s=arr("posts").filter(published);$("postsGrid").innerHTML=s.length?s.map(x=>{let pic=safe(x.image),attachment=safe(x.attachment);return `<article class="card"><span class="status">${esc(x.date||"")}</span><h3>${esc(x.title)}</h3>${pic?`<img src="${esc(pic)}" loading="lazy" alt="Foto postingan ${esc(x.title)}">`:""}<p>${esc(x.description??x.body??"")}</p>${attachment?`<p><a href="${esc(attachment)}" target="_blank" rel="noopener noreferrer">📎 ${esc(x.attachmentName||"Buka lampiran")} ↗</a></p>`:""}<div>${tags(x.tags)}</div></article>`}).join(""):empty;
+ let contacts=arr("contact").filter(published);$("contactGrid").innerHTML=contacts.length?contacts.map(x=>{let u=contactUrl(x.url);return `<article class="card"><h3>${esc(x.title)}</h3><p>${esc(x.description)}</p>${u?`<a href="${esc(u)}" ${u.startsWith("mailto:")?"":'target="_blank" rel="noopener noreferrer"'}>${esc(x.label||x.url)} ↗</a>`:""}</article>`}).join(""):empty;
 }
 function msg(id,s,kind=""){$(id).textContent=s;$(id).className="msg "+kind}
 function modal(id,on){$(id).classList.toggle("open",on);document.body.style.overflow=document.querySelector(".overlay.open")?"hidden":""}
-document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>modal(b.dataset.close,false));
-document.querySelectorAll(".overlay").forEach(m=>m.onclick=e=>{if(e.target===m)modal(m.id,false)});
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>modal(b.dataset.close,false));document.querySelectorAll(".overlay").forEach(m=>m.onclick=e=>{if(e.target===m)modal(m.id,false)});
 document.onkeydown=e=>{if(e.key==="Escape")document.querySelectorAll(".overlay.open").forEach(m=>modal(m.id,false))};
 $("settingsBtn").onclick=()=>modal("settingsModal",true);
 $("themeBtn").onclick=()=>{document.body.classList.toggle("light");try{localStorage.setItem("lyx-theme",document.body.classList.contains("light")?"light":"dark")}catch{}};
 try{if(localStorage.getItem("lyx-theme")==="light")document.body.classList.add("light")}catch{}
-async function load(){if(!db){render();return}let {data,error}=await db.from("lyx_portfolio").select("content").eq("id","main").maybeSingle();if(error){console.error(error);msg("settingsMsg",error.message,"error");return}content=data?.content?normalise(data.content):initial();loaded=true;render();if(!editing)showList()}
+
+async function load(){
+  if(!db){render();return}
+  let {data,error}=await db.from("lyx_portfolio").select("content").eq("id","main").maybeSingle();
+  if(error){console.error(error);msg("settingsMsg",error.message,"error");return}
+  content=data?.content?normalise(data.content):initial();
+  loaded=true;render();if(!editing)showList()
+}
 $("refreshBtn").onclick=async()=>{await load();msg("settingsMsg","Data cloud diperbarui.","success")};
 const isOwner=()=>user?.email?.toLowerCase()===OWNER;
 function authUI(){$("loginView").hidden=isOwner();$("dashboardView").hidden=!isOwner();if(isOwner())showList()}
 async function showOwner(){modal("ownerModal",true);if(db){try{let {data}=await db.auth.getUser();user=data?.user||null}catch{user=null}}authUI()}
-$("ownerBtn").onclick=showOwner;$("settingsOwner").onclick=()=>{modal("settingsModal",false);showOwner()};
-$("loginForm").onsubmit=async e=>{e.preventDefault();let email=$("ownerEmail").value.trim(),password=$("ownerPassword").value;if(email.toLowerCase()!==OWNER){msg("loginMsg","Email ini bukan Owner LYX.","error");return}if(!db){msg("loginMsg","Koneksi Supabase belum siap.","error");return}let b=$("loginBtn");b.disabled=true;try{let {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;user=data.user;$("ownerPassword").value="";msg("loginMsg","");authUI()}catch(err){msg("loginMsg",err.message,"error")}finally{b.disabled=false;$("saveDraft").disabled=false}};
+$("ownerBtn").onclick=showOwner;
+$("settingsOwner").onclick=()=>{modal("settingsModal",false);showOwner()};
+
+$("loginForm").onsubmit=async e=>{
+  e.preventDefault();
+  let email=$("ownerEmail").value.trim(),password=$("ownerPassword").value;
+  if(email.toLowerCase()!==OWNER){msg("loginMsg","Email ini bukan Owner LYX.","error");return}
+  if(!db){msg("loginMsg","Koneksi Supabase belum siap.","error");return}
+  let b=$("loginBtn");b.disabled=true;
+  try{
+    let {data,error}=await db.auth.signInWithPassword({email,password});
+    if(error)throw error;
+    user=data.user;$("ownerPassword").value="";
+    msg("loginMsg","");authUI()
+  }catch(err){msg("loginMsg",err.message,"error")}
+  finally{b.disabled=false;$("saveDraft").disabled=false}
+};
 $("logoutBtn").onclick=async()=>{if(db)await db.auth.signOut();user=null;authUI()};
-async function saveCloud(){if(!db||!isOwner())throw Error("Login Owner diperlukan.");let {error}=await db.from("lyx_portfolio").upsert({id:"main",content,updated_at:new Date().toISOString()});if(error)throw error;render()}
-$("tabs").onclick=e=>{let b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;editing=false;document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));showList()};
-function showList(){editing=false;$("editForm").hidden=true;$("listPanel").hidden=false;msg("ownerMsg","");$("listTitle").textContent=tab==="profile"?"Home":tab[0].toUpperCase()+tab.slice(1);$("addBtn").hidden=tab==="profile";if(tab==="profile"){$("items").innerHTML='<div class="notice">Edit headline, eyebrow, dan deskripsi halaman Home.</div><p><button class="btn primary" id="editHome">Edit Home</button></p>';$("editHome").onclick=()=>edit(-1);return}let list=arr(tab);$("items").innerHTML=list.length?list.map((x,i)=>`<div class="item"><div><strong>${esc(x.name||x.title||"Untitled")}</strong><div class="small">${x.published===false?"Draft / Hidden":"Published"} · ${esc(x.status||x.date||"")}</div></div><div class="actions"><button class="btn" data-action="edit" data-index="${i}">Edit</button><button class="btn" data-action="toggle" data-index="${i}">${x.published===false?"Publish":"Unpublish"}</button><button class="btn danger" data-action="delete" data-index="${i}">Delete</button></div></div>`).join(""):'<div class="empty">Masih kosong. Klik + Create buat nambah sendiri.</div>'}
+
+async function saveCloud(){
+  if(!db||!isOwner())throw Error("Login Owner diperlukan.");
+  let {error}=await db.from("lyx_portfolio").upsert({id:"main",content,updated_at:new Date().toISOString()});
+  if(error)throw error;
+  render()
+}
+$("tabs").onclick=e=>{
+  let b=e.target.closest("[data-tab]");
+  if(!b)return;
+  tab=b.dataset.tab;editing=false;
+  document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));
+  showList()
+};
+function showList(){
+  editing=false;
+  $("editForm").hidden=true;
+  $("listPanel").hidden=false;
+  msg("ownerMsg","");
+  $("listTitle").textContent=tab==="profile"?"Home":tab[0].toUpperCase()+tab.slice(1);
+  $("addBtn").hidden=tab==="profile";
+  if(tab==="profile"){
+    $("items").innerHTML='<div class="notice">Edit headline, eyebrow, dan deskripsi halaman Home.</div><p><button class="btn primary" id="editHome">Edit Home</button></p>';
+    $("editHome").onclick=()=>edit(-1);
+    return
+  }
+  let list=arr(tab);
+  $("items").innerHTML=list.length?list.map((x,i)=>`<div class="item"><div><strong>${esc(x.name||x.title||"Untitled")}</strong><div class="small">${x.published===false?"Draft / Hidden":"Published"} · ${esc(x.status||x.date||"")}</div></div><div class="actions"><button class="btn" data-action="edit" data-index="${i}">Edit</button><button class="btn" data-action="toggle" data-index="${i}">${x.published===false?"Publish":"Unpublish"}</button><button class="btn danger" data-action="delete" data-index="${i}">Delete</button></div></div>`).join(""):'<div class="empty">Masih kosong. Klik + Create buat nambah sendiri.</div>'
+}
 $("addBtn").onclick=()=>edit(-1);
-$("items").onclick=async e=>{let b=e.target.closest("[data-action]");if(!b)return;let i=Number(b.dataset.index),a=b.dataset.action;if(a==="edit"){edit(i);return}let old=JSON.stringify(content);if(a==="delete"){if(!confirm("Hapus konten ini secara permanen?"))return;content[tab].splice(i,1)}else if(a==="toggle"){content[tab][i].published=content[tab][i].published===false}try{await saveCloud();showList();msg("ownerMsg","Berhasil disimpan.","success")}catch(err){content=JSON.parse(old);msg("ownerMsg",err.message,"error")}};
+$("items").onclick=async e=>{
+  let b=e.target.closest("[data-action]");
+  if(!b)return;
+  let i=Number(b.dataset.index),a=b.dataset.action;
+  if(a==="edit"){edit(i);return}
+  let old=JSON.stringify(content);
+  if(a==="delete"){
+    if(!confirm("Hapus konten ini secara permanen?"))return;
+    content[tab].splice(i,1)
+  }else if(a==="toggle"){
+    content[tab][i].published=content[tab][i].published===false
+  }
+  try{
+    await saveCloud();showList();
+    msg("ownerMsg","Berhasil disimpan.","success")
+  }catch(err){
+    content=JSON.parse(old);
+    msg("ownerMsg",err.message,"error")
+  }
+};
 const field=(name,label,value="",type="text",required=false)=>`<div class="field"><label for="f_${name}">${label}</label>${type==="textarea"?`<textarea id="f_${name}" name="${name}" ${required?"required":""}>${esc(value)}</textarea>`:type==="select"?`<select id="f_${name}" name="${name}">${["Planning","Practice","In Progress","Pending","Success","Cancelled","Learning","Developing","Completed"].map(v=>`<option value="${esc(v)}" ${v===value?"selected":""}>${esc(v)}</option>`).join("")}</select>`:`<input id="f_${name}" name="${name}" type="${type}" value="${esc(value)}" ${required?"required":""} ${type==="number"?'min="0" max="100"':""}>`}</div>`;
-function edit(i){editing=true;editIndex=i;$("listPanel").hidden=true;$("editForm").hidden=false;let x=i>=0?arr(tab)[i]:{};$("formTitle").textContent=tab==="profile"?"Edit Home":(i>=0?"Edit ":"Create ")+tab;let f="";
-if(tab==="profile")f=field("eyebrow","Eyebrow",content.eyebrow)+field("title","Headline (gunakan baris baru jika perlu)",content.title,"textarea",true)+field("description","Description",content.description,"textarea");
-if(tab==="skills")f=field("name","Skill name",x.name,"text",true)+field("description","Description",x.description,"textarea")+field("level","Progress (%)",x.level??0,"number")+field("status","Status",x.status||"Learning")+field("tags","Tags (pisahkan koma)",(x.tags||[]).join(", "));
-if(tab==="projects")f=field("title","Project title",x.title,"text",true)+field("description","Description",x.description,"textarea")+field("date","Date",x.date||new Date().toISOString().slice(0,10),"text")+field("status","Status",x.status||"Planning","select")+field("progress","Progress (%)",x.progress??0,"number")+field("tags","Tags (pisahkan koma)",(x.tags||[]).join(", "))+field("url","Project link (optional)",x.url||"","url");
-if(tab==="gallery")f=field("title","Title",x.title,"text",true)+field("description","Description",x.description,"textarea")+`<div class="field"><label for="uploadImage">Pilih foto dari HP</label><input id="uploadImage" type="file" accept="image/*"><div class="small">JPG, PNG, WebP, GIF · maksimal 10 MB</div></div><div id="imagePreview">${safe(x.image||x.url)?`<img class="preview" src="${esc(safe(x.image||x.url))}" alt="Foto tersimpan">`:""}</div><label class="small"><input type="checkbox" id="removeImage"> Hapus foto saat disimpan</label>`;
-if(tab==="posts")f=field("title","Post title",x.title,"text",true)+field("description","Post content",x.description??x.body??"","textarea")+field("date","Date",x.date||new Date().toISOString().slice(0,10))+field("tags","Tags (pisahkan koma)",(x.tags||[]).join(", "))+`<div class="field"><label for="uploadImage">Tambahkan foto (opsional)</label><input id="uploadImage" type="file" accept="image/*"></div><div id="imagePreview">${safe(x.image)?`<img class="preview" src="${esc(safe(x.image))}" alt="Foto tersimpan">`:""}</div><label class="small"><input type="checkbox" id="removeImage"> Hapus foto saat disimpan</label><div class="field"><label for="uploadAttachment">Tambahkan file (opsional)</label><input id="uploadAttachment" type="file"><div class="small">PDF, dokumen, ZIP, audio, video, dll. Maksimal 10 MB per file.</div></div><div id="attachmentPreview" class="small">${safe(x.attachment)?`Lampiran tersimpan: ${esc(x.attachmentName||"File")}`:""}</div><label class="small"><input type="checkbox" id="removeAttachment"> Hapus lampiran saat disimpan</label>`;
-$("fields").innerHTML=f;$("saveDraft").hidden=tab==="profile";if(tab==="gallery"||tab==="posts"){const fi=$("uploadImage");fi.onchange=()=>{const file=fi.files?.[0];$("imagePreview").innerHTML=file?`<span class="small">Foto dipilih: ${esc(file.name)}</span><br><img class="preview" id="localPreview" alt="Preview foto">`:"";if(file){const objectURL=URL.createObjectURL(file);$("localPreview").src=objectURL;$("localPreview").onload=()=>URL.revokeObjectURL(objectURL)}};if(tab==="posts")$("uploadAttachment").onchange=()=>{$("attachmentPreview").textContent=$("uploadAttachment").files?.[0]?.name||""}}msg("ownerMsg","")}
+
+function edit(i){
+  editing=true;editIndex=i;
+  $("listPanel").hidden=true;$("editForm").hidden=false;
+  let x=i>=0?arr(tab)[i]:{};
+  $("formTitle").textContent=tab==="profile"?"Edit Home":(i>=0?"Edit ":"Create ")+tab;
+  let f="";
+  if(tab==="profile")f=field("eyebrow","Eyebrow",content.eyebrow)+field("title","Headline (gunakan baris baru jika perlu)",content.title,"textarea",true)+field("description","Description",content.description,"textarea");
+  if(tab==="skills")f=field("name","Skill name",x.name,"text",true)+field("description","Description",x.description,"textarea")+field("level","Progress (%)",x.level??0,"number")+field("status","Status",x.status||"Learning")+field("tags","Tags (pisahkan koma)",(x.tags||[]).join(", "));
+  if(tab==="projects")f=field("title","Project title",x.title,"text",true)+field("description","Description",x.description,"textarea")+field("date","Date",x.date||new Date().toISOString().slice(0,10),"text")+field("status","Status",x.status||"Planning","select")+field("progress","Progress (%)",x.progress??0,"number")+field("tags","Tags (pisahkan koma)",(x.tags||[]).join(", "))+field("url","Project link (optional)",x.url||"","url");
+  if(tab==="contact")f=field("title","Platform / Contact name",x.title,"text",true)+field("description","Description",x.description,"textarea")+field("label","Displayed link text",x.label)+field("url","Link (https:// or mailto:)",x.url);
+  if(tab==="gallery")f=field("title","Title",x.title,"text",true)+field("description","Description",x.description,"textarea")+`<div class="field"><label for="uploadImage">Pilih foto dari HP</label><input id="uploadImage" type="file" accept="image/*"><div class="small">JPG, PNG, WebP, GIF · maksimal 10 MB</div></div><div id="imagePreview">${safe(x.image||x.url)?`<img class="preview" src="${esc(safe(x.image||x.url))}" alt="Foto tersimpan">`:""}</div><label class="small"><input type="checkbox" id="removeImage"> Hapus foto saat disimpan</label>`;
+  if(tab==="posts")f=field("title","Post title",x.title,"text",true)+field("description","Post content",x.description??x.body??"","textarea")+field("date","Date",x.date||new Date().toISOString().slice(0,10))+field("tags","Tags (pisahkan koma)",(x.tags||[]).join(", "))+`<div class="field"><label for="uploadImage">Tambahkan foto (opsional)</label><input id="uploadImage" type="file" accept="image/*"></div><div id="imagePreview">${safe(x.image)?`<img class="preview" src="${esc(safe(x.image))}" alt="Foto tersimpan">`:""}</div><label class="small"><input type="checkbox" id="removeImage"> Hapus foto saat disimpan</label><div class="field"><label for="uploadAttachment">Tambahkan file (opsional)</label><input id="uploadAttachment" type="file"><div class="small">PDF, dokumen, ZIP, audio, video, dll. Maksimal 10 MB per file.</div></div><div id="attachmentPreview" class="small">${safe(x.attachment)?`Lampiran tersimpan: ${esc(x.attachmentName||"File")}`:""}</div><label class="small"><input type="checkbox" id="removeAttachment"> Hapus lampiran saat disimpan</label>`;
+  $("fields").innerHTML=f;
+  $("saveDraft").hidden=tab==="profile";
+  if(tab==="gallery"||tab==="posts"){
+    const fi=$("uploadImage");
+    fi.onchange=()=>{
+      const file=fi.files?.[0];
+      $("imagePreview").innerHTML=file?`<span class="small">Foto dipilih: ${esc(file.name)}</span><br><img class="preview" id="localPreview" alt="Preview foto">`:"";
+      if(file){
+        const objectURL=URL.createObjectURL(file);
+        $("localPreview").src=objectURL;
+        $("localPreview").onload=()=>URL.revokeObjectURL(objectURL)
+      }
+    };
+    if(tab==="posts")$("uploadAttachment").onchange=()=>{$("attachmentPreview").textContent=$("uploadAttachment").files?.[0]?.name||""}
+  }
+  msg("ownerMsg","")
+}
 $("cancelEdit").onclick=showList;
-async function uploadFile(file,kind){if(!file)return "";if(file.size>10*1024*1024)throw Error("File maksimal 10 MB: "+file.name);if(kind==="image"&&!file.type.startsWith("image/"))throw Error("Pilih file foto yang valid.");if(!db||!isOwner())throw Error("Login Owner diperlukan.");const extension=(file.name.split(".").pop()||"bin").toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,10)||"bin";const path=`${user.id}/${kind}/${crypto.randomUUID()}.${extension}`;const {error}=await db.storage.from(BUCKET).upload(path,file,{contentType:file.type||"application/octet-stream",upsert:false});if(error)throw Error("Upload gagal: "+error.message);return db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl}
-async function submitEdit(draft){if(!$("editForm").reportValidity())return;let form=new FormData($("editForm")),v=n=>String(form.get(n)||"").trim(),old=JSON.stringify(content);let x=null;if(tab==="profile"){content.eyebrow=v("eyebrow");content.title=v("title");content.description=v("description")}else{let prior=editIndex>=0?content[tab][editIndex]:{};x={...prior};if(tab==="skills")x={...x,name:v("name"),description:v("description"),level:num(v("level")),status:v("status"),tags:v("tags").split(",").map(s=>s.trim()).filter(Boolean)};if(tab==="projects")x={...x,title:v("title"),description:v("description"),date:v("date"),status:v("status"),progress:num(v("progress")),tags:v("tags").split(",").map(s=>s.trim()).filter(Boolean),url:safe(v("url"))};if(tab==="gallery")x={...x,title:v("title"),description:v("description")};if(tab==="posts")x={...x,title:v("title"),description:v("description"),date:v("date"),tags:v("tags").split(",").map(s=>s.trim()).filter(Boolean)};x.published=!draft;if(editIndex<0)content[tab].push(x);else content[tab][editIndex]=x}let b=$("saveItem");b.disabled=true;$("saveDraft").disabled=true;msg("ownerMsg","Mengunggah dan menyimpan...");try{if(tab==="gallery"||tab==="posts"){const imageFile=$("uploadImage")?.files?.[0];if($("removeImage")?.checked){x.image="";if(tab==="gallery")x.url=""}if(imageFile){x.image=await uploadFile(imageFile,"image");if(tab==="gallery")x.url=""}if(tab==="posts"){const attachmentFile=$("uploadAttachment")?.files?.[0];if($("removeAttachment")?.checked){x.attachment="";x.attachmentName=""}if(attachmentFile){x.attachment=await uploadFile(attachmentFile,"file");x.attachmentName=attachmentFile.name}}}await saveCloud();showList();msg("ownerMsg",draft?"Draft tersimpan.":"Berhasil disimpan dan dipublikasikan.","success")}catch(err){content=JSON.parse(old);msg("ownerMsg",err.message,"error")}finally{b.disabled=false;$("saveDraft").disabled=false}}
-$("editForm").onsubmit=e=>{e.preventDefault();submitEdit(false)};$("saveDraft").onclick=()=>submitEdit(true);
-async function init(){$("year").textContent=new Date().getFullYear();render();if(!window.supabase?.createClient){console.error("Supabase script unavailable");return}try{db=window.supabase.createClient(URL_DB,KEY);await load();let {data}=await db.auth.getUser();user=data?.user||null;authUI()}catch(e){console.error(e)}}init();
+
+async function uploadFile(file,kind){
+  if(!file)return "";
+  if(file.size>10*1024*1024)throw Error("File maksimal 10 MB: "+file.name);
+  if(kind==="image"&&!file.type.startsWith("image/"))throw Error("Pilih file foto yang valid.");
+  if(!db||!isOwner())throw Error("Login Owner diperlukan.");
+  const extension=(file.name.split(".").pop()||"bin").toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,10)||"bin";
+  const path=`${user.id}/${kind}/${crypto.randomUUID()}.${extension}`;
+  const {error}=await db.storage.from(BUCKET).upload(path,file,{contentType:file.type||"application/octet-stream",upsert:false});
+  if(error)throw Error("Upload gagal: "+error.message);
+  return db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl
+}
+async function submitEdit(draft){
+  if(!$("editForm").reportValidity())return;
+  let form=new FormData($("editForm")),v=n=>String(form.get(n)||"").trim(),old=JSON.stringify(content);
+  let x=null;
+  if(tab==="profile"){
+    content.eyebrow=v("eyebrow");
+    content.title=v("title");
+    content.description=v("description")
+  }else{
+    let prior=editIndex>=0?content[tab][editIndex]:{};
+    x={...prior};
+    if(tab==="skills")x={...x,name:v("name"),description:v("description"),level:num(v("level")),status:v("status"),tags:v("tags").split(",").map(s=>s.trim()).filter(Boolean)};
+    if(tab==="projects")x={...x,title:v("title"),description:v("description"),date:v("date"),status:v("status"),progress:num(v("progress")),tags:v("tags").split(",").map(s=>s.trim()).filter(Boolean),url:safe(v("url"))};
+    if(tab==="contact")x={...x,title:v("title"),description:v("description"),label:v("label"),url:contactUrl(v("url"))};
+    if(tab==="gallery")x={...x,title:v("title"),description:v("description")};
+    if(tab==="posts")x={...x,title:v("title"),description:v("description"),date:v("date"),tags:v("tags").split(",").map(s=>s.trim()).filter(Boolean)};
+    x.published=!draft;
+    if(editIndex<0)content[tab].push(x);else content[tab][editIndex]=x
+  }
+  let b=$("saveItem");b.disabled=true;$("saveDraft").disabled=true;
+  msg("ownerMsg","Mengunggah dan menyimpan...");
+  try{
+    if(tab==="gallery"||tab==="posts"){
+      const imageFile=$("uploadImage")?.files?.[0];
+      if($("removeImage")?.checked){x.image="";if(tab==="gallery")x.url=""}
+      if(imageFile){x.image=await uploadFile(imageFile,"image");if(tab==="gallery")x.url=""}
+      if(tab==="posts"){
+        const attachmentFile=$("uploadAttachment")?.files?.[0];
+        if($("removeAttachment")?.checked){x.attachment="";x.attachmentName=""}
+        if(attachmentFile){x.attachment=await uploadFile(attachmentFile,"file");x.attachmentName=attachmentFile.name}
+      }
+    }
+    await saveCloud();showList();
+    msg("ownerMsg",draft?"Draft tersimpan.":"Berhasil disimpan dan dipublikasikan.","success")
+  }catch(err){
+    content=JSON.parse(old);
+    msg("ownerMsg",err.message,"error")
+  }finally{
+    b.disabled=false;$("saveDraft").disabled=false
+  }
+}
+$("editForm").onsubmit=e=>{e.preventDefault();submitEdit(false)};
+$("saveDraft").onclick=()=>submitEdit(true);
+
+async function init(){
+  $("year").textContent=new Date().getFullYear();
+  render();
+  if(!window.supabase?.createClient){console.error("Supabase script unavailable");return}
+  try{
+    db=window.supabase.createClient(URL_DB,KEY);
+    await load();
+    let {data}=await db.auth.getUser();
+    user=data?.user||null;
+    authUI()
+  }catch(e){console.error(e)}
+}
+init();
 })();
-</script></body></html>
+</script>
+</body>
+</html>
